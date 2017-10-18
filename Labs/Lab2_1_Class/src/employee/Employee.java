@@ -93,12 +93,6 @@ public class Employee {
         Employee employee = (Employee) o;
 
         return Double.compare(employee.salary, salary) == 0 &&
-                Objects.equals(firstName, employee.firstName) &&
-                Objects.equals(secondName, employee.secondName) &&
-                Objects.equals(dateOfBirth, employee.dateOfBirth) &&
-                Objects.equals(firstDayAtWork, employee.firstDayAtWork) &&
-                Objects.equals(phoneNumber, employee.phoneNumber) &&
-                Objects.equals(emailAddress, employee.emailAddress) &&
                 Objects.equals(workingPosition, employee.workingPosition);
     }
 
