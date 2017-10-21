@@ -10,13 +10,11 @@ public class Employee {
     private final String firstName;
     private final String secondName;
     private final LocalDate dateOfBirth;
-    private final LocalDate firstDayAtWork;
+    private  LocalDate firstDayAtWork;
     private String phoneNumber;
     private String emailAddress;
     private String workingPosition;
     private double salary;
-
-
     Employee(EmployeeBuilder employeeBuilder) {
 
         this.firstName = employeeBuilder.getFirstName();
@@ -28,6 +26,8 @@ public class Employee {
         this.emailAddress=employeeBuilder.getEmailAddress();
         this.salary=employeeBuilder.getSalary();
     }
+
+
 
 
     // BUILDER
@@ -206,6 +206,11 @@ public class Employee {
         this.workingPosition=workingPosition;
     }
 
+    public void setFirstDayAtWork(LocalDate firstDayAtWork) {
+        this.firstDayAtWork = firstDayAtWork;
+    }
+
+
     // OTHERS
 
     @Override
@@ -218,12 +223,6 @@ public class Employee {
         Employee employee = (Employee) o;
 
         return Double.compare(employee.salary, salary) == 0 &&
-                Objects.equals(firstName, employee.firstName) &&
-                Objects.equals(secondName, employee.secondName) &&
-                Objects.equals(dateOfBirth, employee.dateOfBirth) &&
-                Objects.equals(firstDayAtWork, employee.firstDayAtWork) &&
-                Objects.equals(phoneNumber, employee.phoneNumber) &&
-                Objects.equals(emailAddress, employee.emailAddress) &&
                 Objects.equals(workingPosition, employee.workingPosition);
     }
 
