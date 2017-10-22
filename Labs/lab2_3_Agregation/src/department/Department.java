@@ -1,7 +1,6 @@
 package department;
 
 import employee.Employee;
-
 import java.util.*;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
@@ -10,24 +9,20 @@ import java.util.regex.Matcher;
 public class Department {
     private String departmentName;
     private ArrayList<Employee> employees;
+    private final String checkDepartmentName="(^[A-Z]{1}[a-z]{2,15})($|\\s[A-z]{2,15}$)";
 
-    Department (DepartmentBuilder departmentBuilder){
-        this.departmentName=departmentBuilder.getDepartmentName();
-        this.employees=departmentBuilder.getEmployees();
-    }
-
-    //BUILDER
-    public static  class DepartmentBuilder{
-        private String departmentName;
-        private ArrayList<Employee> employees;
-
+   public static DepartmentBuilder newDepartmentBuilder(){
+       return new Department().new DepartmentBuilder();
+   }
+    //BUILDER inner class
+    public class DepartmentBuilder{
         public DepartmentBuilder setEmployees(ArrayList<Employee>employees){
-            this.employees=employees;
+            Department.this.employees=employees;
             return this;
         }
         public DepartmentBuilder setDepartmentName(String departmentName)throws RuntimeException{
             if (checkDepartmentName(departmentName)){
-                this.departmentName=departmentName;
+                Department.this.departmentName=departmentName;
                 return this;
             }
             throw new RuntimeException("Incorrect Department name !");
@@ -37,25 +32,21 @@ public class Department {
         }
 
         public ArrayList<Employee> getEmployees(){
-            return this.employees;
+            return Department.this.employees;
         }
 
-        public boolean checkDepartmentName(String departmentName){
-            Pattern pattern=Pattern.compile("(^[A-Z]{1}[a-z]{2,15})($|\\s[A-z]{2,15}$)");
-            Matcher matcher=pattern.matcher(departmentName);
-            if(matcher.matches())
-                return true;
-            return false;
-        }
         public Department build(){
-            return new Department(this);
+            return Department.this;
         }
     }
     // end of BUILDER
 
     //SET
-    public void setDepartmentName(String departmentName) {
-        this.departmentName = departmentName;
+    public void setDepartmentName(String departmentName) throws RuntimeException{
+       if(checkDepartmentName(departmentName)) {
+           this.departmentName = departmentName;
+       }
+       throw new RuntimeException("Incorrect department name !");
     }
 
     public void setEmployees(ArrayList<Employee> employees) {
@@ -75,9 +66,9 @@ public class Department {
         return employees;
     }
 
-    public ArrayList<Employee> getSortedEmployees(){
+    public void sortEmployees(){
         Collections.sort(employees);
-        return employees;
+        //return employees;
     }
 
     /*
@@ -99,6 +90,14 @@ public class Department {
             averageSalary+=this.employees.get(i).getSalary();
         }
         return averageSalary/this.employees.size();
+    }
+
+    public boolean checkDepartmentName(String departmentName){
+        Pattern pattern=Pattern.compile(checkDepartmentName);
+        Matcher matcher=pattern.matcher(departmentName);
+        if(matcher.matches())
+            return true;
+        return false;
     }
 
     @Override

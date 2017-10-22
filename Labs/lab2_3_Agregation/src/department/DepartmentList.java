@@ -1,15 +1,17 @@
 package department;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class DepartmentList {
     private ArrayList<Department> departmentList;
 
-    DepartmentList(DepartmentListBuilder departmentListBuilder){
-        this.departmentList=departmentListBuilder.getDepartmentList();
+    public static DepartmentListBuilder newDepartmentListBuilder(){
+        return new DepartmentList().new DepartmentListBuilder();
     }
 
-    public static class DepartmentListBuilder{
+    //BUILDER inner class
+    public class DepartmentListBuilder{
         private ArrayList<Department> departmentList;
 
         public ArrayList<Department> getDepartmentList() {
@@ -21,9 +23,15 @@ public class DepartmentList {
         }
 
         public DepartmentList build(){
-            return new DepartmentList(this);
+            return DepartmentList.this;
         }
     }
+    // end of BUILDER
+
+    public void setDepartmentList(ArrayList<Department> departmentList) {
+        this.departmentList = departmentList;
+    }
+
     public ArrayList<Department> getDepartmentList() {
         return departmentList;
     }
@@ -34,7 +42,17 @@ public class DepartmentList {
         }
         return averageSalary/this.departmentList.size();
     }
-    public void setDepartmentList(ArrayList<Department> departmentList) {
-        this.departmentList = departmentList;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DepartmentList that = (DepartmentList) o;
+        return Objects.equals(departmentList, that.departmentList);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(departmentList);
     }
 }
