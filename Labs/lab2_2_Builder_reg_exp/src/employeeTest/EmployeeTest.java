@@ -59,7 +59,10 @@ public class EmployeeTest {
         Employee empl1 = Employee.newEmployeeBuilder()
                 .build();
 
-        return new Object[][]{{empl1.checkFirstSecondName(name1), false}, {empl1.checkFirstSecondName(name2), true}, {empl1.checkFirstSecondName(name3), false}, {empl1.checkFirstSecondName(name4), false}};
+        return new Object[][]{{empl1.checkFirstSecondName(name1), false},
+                {empl1.checkFirstSecondName(name2), true},
+                {empl1.checkFirstSecondName(name3), false},
+                {empl1.checkFirstSecondName(name4), false}};
     }
 
     @Test(dataProvider = "nameRegExpProvider")
@@ -78,7 +81,11 @@ public class EmployeeTest {
         Employee empl1 = Employee.newEmployeeBuilder()
                 .build();
 
-        return new Object[][]{{empl1.checkPhoneNumber(phoneNumber1), false}, {empl1.checkPhoneNumber(phoneNumber2), true}, {empl1.checkPhoneNumber(phoneNumber3), false}, {empl1.checkPhoneNumber(phoneNumber4), false}, {empl1.checkPhoneNumber(phoneNumber5), false}};
+        return new Object[][]{{empl1.checkPhoneNumber(phoneNumber1), false},
+                {empl1.checkPhoneNumber(phoneNumber2), true},
+                {empl1.checkPhoneNumber(phoneNumber3), false},
+                {empl1.checkPhoneNumber(phoneNumber4), false},
+                {empl1.checkPhoneNumber(phoneNumber5), false}};
     }
 
     @Test(dataProvider = "phoneNumberRegExpProvider")
@@ -98,9 +105,13 @@ public class EmployeeTest {
 
         Employee empl = Employee.newEmployeeBuilder()
                 .build();
-        return new Object[][]{{empl.checkEmailAddress(email1), false}, {empl.checkEmailAddress(email2), true}, {empl.checkEmailAddress(email3), false},
-                {empl.checkEmailAddress(email4), true}, {empl.checkEmailAddress(email5), true}, {empl.checkEmailAddress(email6), false},
-        {empl.checkEmailAddress(email7), false}};
+        return new Object[][]{{empl.checkEmailAddress(email1), false},
+                {empl.checkEmailAddress(email2), true},
+                {empl.checkEmailAddress(email3), false},
+                {empl.checkEmailAddress(email4), true},
+                {empl.checkEmailAddress(email5), true},
+                {empl.checkEmailAddress(email6), false},
+                {empl.checkEmailAddress(email7), false}};
     }
 
     @Test(dataProvider = "emailAddressRegExpProvider")

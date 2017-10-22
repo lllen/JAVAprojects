@@ -68,9 +68,9 @@ public class Employee {
             return this;
         }
 
-        public EmployeeBuilder setWorkingPosition(String workingPosition){
-                Employee.this.workingPosition = workingPosition;
-                return this;
+        public EmployeeBuilder setWorkingPosition(String workingPosition) {
+            Employee.this.workingPosition = workingPosition;
+            return this;
         }
 
         public EmployeeBuilder setFirstDayAtWork(LocalDate firstDayAtWork) {
@@ -125,16 +125,24 @@ public class Employee {
         this.salary = salary;
     }
 
-    public void setPhoneNumber (String phoneNumber){
-        this.phoneNumber=phoneNumber;
+    public void setPhoneNumber (String phoneNumber)throws RuntimeException{
+        if(checkPhoneNumber(phoneNumber)){
+            this.phoneNumber=phoneNumber;
+        }
+        throw new RuntimeException("Incorrect phone number !");
     }
 
-    public void setEmailAddress(String emailAddress){
-        this.emailAddress=emailAddress;
+    public void setEmailAddress(String emailAddress)throws RuntimeException{
+        if(checkEmailAddress(emailAddress)) {
+            this.emailAddress = emailAddress;
+        }
+        throw  new RuntimeException("Incorrect e-mail address !");
     }
 
     public void setWorkingPosition(String workingPosition){
-        this.workingPosition=workingPosition;
+
+            this.workingPosition = workingPosition;
+
     }
 
     public void setFirstDayAtWork(LocalDate firstDayAtWork) {
@@ -144,7 +152,7 @@ public class Employee {
 
     // OTHERS
     public boolean checkFirstSecondName(final String firstName){
-        Pattern pattern = Pattern.compile(checkFirstSecondName);  // [0-15] letters allowed
+        Pattern pattern = Pattern.compile(checkFirstSecondName);
         Matcher matcher = pattern.matcher(firstName);
         if(matcher.matches())
             return true;
@@ -166,6 +174,8 @@ public class Employee {
             return true;
         return false;
     }
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o)
@@ -181,7 +191,10 @@ public class Employee {
 
     @Override
     public int hashCode() {
-        return Objects.hash(firstName, secondName, dateOfBirth, firstDayAtWork, phoneNumber, emailAddress, workingPosition, salary);
+        return Objects.hash(firstName, secondName,
+                dateOfBirth, firstDayAtWork,
+                phoneNumber, emailAddress,
+                workingPosition, salary);
     }
 
 }
