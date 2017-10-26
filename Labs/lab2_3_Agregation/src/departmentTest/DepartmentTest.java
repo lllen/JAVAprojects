@@ -126,39 +126,37 @@ public class DepartmentTest {
         return new Object[][]{{dep1_notsorted,dep2_sorted}};
     }
 
-    @Test (expectedExceptions = RuntimeException.class)
-    public void ExceptionTest(){
-        Department dep1= Department.newDepartmentBuilder()
-                .setDepartmentName("FJHN")
-                .build();
+    @DataProvider
+    Object[][]departmentNameExceptionProvider(){
+        String departmentName1="";
+        String departmentName2="";
+        String departmentName3="";
+        String departmentName4="";
+        String departmentName5="";
+        String departmentName6="";
+        String departmentName7="";
+        String departmentName8="";
+        String departmentName9="";
+        String departmentName10="";
 
-        /*Department dep2= Department.newDepartmentBuilder()
-                .setDepartmentName("xdfcgvbjhn")
+        return new Object[][]{{departmentName1},{departmentName2},{departmentName3}
+                ,{departmentName4},{departmentName5},{departmentName6}
+                ,{departmentName7},{departmentName8},{departmentName9}
+                ,{departmentName10}};
+    }
+
+    @Test (expectedExceptions = RuntimeException.class)
+    public void departmentNameExceptionTest(String departmentName){
+        Department dep1= Department.newDepartmentBuilder()
+                .setDepartmentName(departmentName)
                 .build();
-        Department dep3= Department.newDepartmentBuilder()
-                .setDepartmentName("fgc4354")
-                .build();
-        Department dep4= Department.newDepartmentBuilder()
-                .setDepartmentName("3435")
-                .build();
-        Department dep5= Department.newDepartmentBuilder()
-                .setDepartmentName("System admin")
-                .build();
-        Department dep6= Department.newDepartmentBuilder()
-                .setDepartmentName("FJ")
-                .build();
-        Department dep7= Department.newDepartmentBuilder()
-                .setDepartmentName("F")
-                .build();
-        Department dep8= Department.newDepartmentBuilder()
-                .setDepartmentName("Gghjv Ggb Gkjh Hukhk")
-                .build();*/
     }
 
     @Test(dataProvider = "SortedEmployeesProvider")
     public void EmployeesSortingTest(Department dep,Department expected_dep){
         Assert.assertEquals(dep,expected_dep);
     }
+
     @DataProvider
     Object[][] EmployeesBySalaryProvider(){
         Employee empl1 = Employee.newEmployeeBuilder()

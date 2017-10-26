@@ -9,7 +9,7 @@ import java.util.regex.Matcher;
 public class Department {
     private String departmentName;
     private ArrayList<Employee> employees;
-    private final String checkDepartmentName="(^[A-Z]{1}[a-z]{2,15})($|\\s[A-z]{2,15}$)";
+    private final String checkDepartmentName="^[A-z]{2,15}$"; // not correct yet
 
    public static DepartmentBuilder newDepartmentBuilder(){
        return new Department().new DepartmentBuilder();
