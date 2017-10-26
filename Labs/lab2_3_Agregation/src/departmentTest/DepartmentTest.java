@@ -125,6 +125,36 @@ public class DepartmentTest {
         dep1_notsorted.sortEmployees();
         return new Object[][]{{dep1_notsorted,dep2_sorted}};
     }
+
+    @Test (expectedExceptions = RuntimeException.class)
+    public void ExceptionTest(){
+        Department dep1= Department.newDepartmentBuilder()
+                .setDepartmentName("FJHN")
+                .build();
+
+        /*Department dep2= Department.newDepartmentBuilder()
+                .setDepartmentName("xdfcgvbjhn")
+                .build();
+        Department dep3= Department.newDepartmentBuilder()
+                .setDepartmentName("fgc4354")
+                .build();
+        Department dep4= Department.newDepartmentBuilder()
+                .setDepartmentName("3435")
+                .build();
+        Department dep5= Department.newDepartmentBuilder()
+                .setDepartmentName("System admin")
+                .build();
+        Department dep6= Department.newDepartmentBuilder()
+                .setDepartmentName("FJ")
+                .build();
+        Department dep7= Department.newDepartmentBuilder()
+                .setDepartmentName("F")
+                .build();
+        Department dep8= Department.newDepartmentBuilder()
+                .setDepartmentName("Gghjv Ggb Gkjh Hukhk")
+                .build();*/
+    }
+
     @Test(dataProvider = "SortedEmployeesProvider")
     public void EmployeesSortingTest(Department dep,Department expected_dep){
         Assert.assertEquals(dep,expected_dep);

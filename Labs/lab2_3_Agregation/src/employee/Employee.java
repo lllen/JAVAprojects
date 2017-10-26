@@ -7,17 +7,17 @@ import java.util.regex.Pattern;
 
 public class Employee implements Comparable<Employee>{
 
-    private  String firstName;
-    private  String secondName;
-    private  LocalDate dateOfBirth;
-    private  LocalDate firstDayAtWork;
+    private String firstName;
+    private String secondName;
+    private LocalDate dateOfBirth;
+    private LocalDate firstDayAtWork;
     private String phoneNumber;
     private String emailAddress;
     private String workingPosition;
     private double salary;
-    private final String checkFirstSecondName="^[A-Z][a-z]{3,14}$";
+    private final String checkFirstSecondName="^[A-Z][a-z]{3,14}(|[\\-][A-Z][a-z]{1,14})$";
     private final String checkPhoneNumber="^\\+380[0-9]{9}$";
-    private final String checkEmailAddress="^[a-z]+\\w{1,10}+@(mail|[a-z]+|[a-z]+mail])\\.(com|ru|ua)$";
+    private final String checkEmailAddress="^[A-z]\\w{3,9}+@([a-z]{2,10})\\.(com|ru|ua)$";
 
 
     public static EmployeeBuilder newEmployeeBuilder() {

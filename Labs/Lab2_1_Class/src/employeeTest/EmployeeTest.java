@@ -18,7 +18,10 @@ public class EmployeeTest {
         Employee ob4=new Employee();
                 ob4.setFirstDayAtWork(LocalDate.now());
 
-        return new Object[][]{{ob1.getWorkingExperience(),2},{ob2.getWorkingExperience(),0},{ob3.getWorkingExperience(),0},{ob4.getWorkingExperience(),0}};
+        return new Object[][]{{ob1.getWorkingExperience(),2},
+                {ob2.getWorkingExperience(),0},
+                {ob3.getWorkingExperience(),0},
+                {ob4.getWorkingExperience(),0}};
     }
     @Test(dataProvider = "WorkingExperienceTimeProvider")
     public void testCalculateWorkingExperience(long workingExperience,long expectedWorkingExperience) {
@@ -34,7 +37,9 @@ public class EmployeeTest {
         Employee ob3=new Employee();
                 ob3.setDateOfBirth(LocalDate.of(2018,03,8));
 
-        return new Object[][]{{ob1.getAge(),41},{ob2.getAge(),0},{ob3.getAge(),0}};
+        return new Object[][]{{ob1.getAge(),41},
+                {ob2.getAge(),0},
+                {ob3.getAge(),0}};
     }
 
     @Test(dataProvider = "AgeProvider")

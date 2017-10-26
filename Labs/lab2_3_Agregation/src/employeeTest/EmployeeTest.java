@@ -119,5 +119,101 @@ public class EmployeeTest {
         Assert.assertEquals(rezult,expected_rezult);
     }
 
+    /*
+    * nameExceptionProvider provide info for firstName as well as
+    * for secondName as requirements are the same for both field
+    * */
+    @DataProvider
+    Object[][] nameExceptionProvider(){
+        String name1="";
+        String name2="Aaaaaaaaaaaaaaaaa"; //16 symbols in first word not allowed (only 15)
+        String name3="aaaaaa"; // first symbol must be uppercase
+        String name4="Ggjfkg12vf"; // numbers are not allowed
+        String name5="Fhjk Hhjk"; // only one word is allowed
+        String name6=" "; //
+        String name7=" Alison";
+        String name8="Alison ";
+        String name9="Alison.";
+        String name10="Alison-emmy"; // first letter of second word must be uppercase
+        String name11="Ali"; // minimum symbols must be 4
+        String name12="Alis-A";// minimum symbols of second word mast be 2
+        String name13="Alison-Aliiiiiiiiiiiiii"; // //16 symbols in second word not allowed (only 15)
+
+        return new Object[][]{{name1},{name2},{name3},{name4},
+                {name5},{name6},{name7},{name8},{name9},{name10}
+                ,{name11},{name12},{name13}};
+    }
+
+
+    @Test(dataProvider = "nameExceptionProvider", expectedExceptions = RuntimeException.class)
+    public void firstNameExceptionTest(String name){
+        Employee empl= Employee.newEmployeeBuilder()
+                .setFirstName(name)
+                .build();
+    }
+
+    @Test(dataProvider = "nameExceptionProvider", expectedExceptions = RuntimeException.class)
+    public void secondNameExceptionTest(String name){
+        Employee empl= Employee.newEmployeeBuilder()
+                .setSecondName(name)
+                .build();
+    }
+
+    @DataProvider
+    Object[][]phoneNumberExceptionProvider(){
+        /*
+        * number starts from +380 and 9 numbers
+        * */
+
+        String number1="380992776367"; // must be symbol +
+        String number2="+380 99 277 63 67"; // spaces are not allowed
+        String number3="+377992776367"; // the code of country doesn`t match
+        String number4="+3809927763678"; // too much numbers
+        String number5="+380f99277636"; // not allowed symbol
+        String number6="+38099277636"; // not enough numbers
+
+        return new Object[][]{{number1},{number2},{number3},{number4},
+                                {number5},{number6}};
+    }
+    @Test(dataProvider = "phoneNumberExceptionProvider", expectedExceptions = RuntimeException.class)
+    public void phoneNumberExceptionTest(String phoneNumber){
+        Employee empl1= Employee.newEmployeeBuilder()
+                .setPhoneNumber(phoneNumber)
+                .build();
+    }
+
+    @DataProvider
+    Object[][]emailAddressExceptionProvider(){
+        /*
+        * First symbol must be a letter (upper or lowercase)
+        * 9 symbols(numers, letters, numbers)(min=3, max=9) + @ + minimum=2 maximum=10 [a-z] symbols
+        * + . + com or ru or ua
+        * */
+        String email1="1olena@mail.com";
+        String email2=" olena1q2@yandex.ru";
+        String email3="olena1q2@yandex.ru ";
+        String email4="olena1q2@yandexru";
+        String email5="olena1q2@3yandex.ru";
+        String email6="OLENA1q2@yandex.r1u";
+        String email7="aaa@yandex.ru";
+        String email8="aaaaaaaaaaa@yandex.ru";
+        String email9="olena1q2@yandexxxxxx.ru";
+        String email10="olena1q2@y.ru";
+        String email11="olen-a1q2@yandexmail.com";
+        String email12="olena1Q2@yandexmail.rucom";
+
+        return new Object[][]{{email1},{email2},{email3},{email4}
+                            ,{email5},{email6},{email7},{email8}
+                            ,{email9},{email10},{email11},{email12}};
+    }
+
+    @Test(dataProvider = "emailAddressExceptionProvider",expectedExceptions = RuntimeException.class)
+    public void emailAddressExceptionTest(String email){
+        Employee empl= Employee.newEmployeeBuilder()
+                .setEmailAddress(email)
+                .build();
+    }
+
+
 
 }
