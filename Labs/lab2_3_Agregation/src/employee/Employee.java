@@ -1,11 +1,12 @@
 package employee;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Employee implements Comparable<Employee>{
+public class Employee implements Comparable<Employee>,Serializable{
 
     private String firstName;
     private String secondName;
@@ -15,7 +16,7 @@ public class Employee implements Comparable<Employee>{
     private String emailAddress;
     private String workingPosition;
     private double salary;
-    private final String checkFirstSecondName="^[A-Z][a-z]{3,14}(|[\\-][A-Z][a-z]{1,14})$";
+    private final String checkFirstSecondName="^[A-Z][a-z]{3,14}(|[\\-][A-Z][a-z]{1,14})$"; // double name allowed with separator \\-
     private final String checkPhoneNumber="^\\+380[0-9]{9}$";
     private final String checkEmailAddress="^[A-z]\\w{3,9}+@([a-z]{2,10})\\.(com|ru|ua)$";
 
@@ -208,4 +209,20 @@ public class Employee implements Comparable<Employee>{
     }
 
 
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "firstName='" + firstName + '\'' +
+                ", secondName='" + secondName + '\'' +
+                ", dateOfBirth=" + dateOfBirth +
+                ", firstDayAtWork=" + firstDayAtWork +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", emailAddress='" + emailAddress + '\'' +
+                ", workingPosition='" + workingPosition + '\'' +
+                ", salary=" + salary +
+                ", checkFirstSecondName='" + checkFirstSecondName + '\'' +
+                ", checkPhoneNumber='" + checkPhoneNumber + '\'' +
+                ", checkEmailAddress='" + checkEmailAddress + '\'' +
+                '}';
+    }
 }

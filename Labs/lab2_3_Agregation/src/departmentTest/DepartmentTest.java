@@ -128,16 +128,16 @@ public class DepartmentTest {
 
     @DataProvider
     Object[][]departmentNameExceptionProvider(){
-        String departmentName1="";
-        String departmentName2="";
-        String departmentName3="";
-        String departmentName4="";
-        String departmentName5="";
-        String departmentName6="";
-        String departmentName7="";
-        String departmentName8="";
-        String departmentName9="";
-        String departmentName10="";
+        String departmentName1="Word ";
+        String departmentName2="word word word word";
+        String departmentName3="Wo r d";
+        String departmentName4="t";
+        String departmentName5="Wwwwwwwwwwwwwwww"; //16
+        String departmentName6="Word w";
+        String departmentName7="WtRyI.";
+        String departmentName8="Gjkhdf/fsdjhkf";
+        String departmentName9="Iooi-hjf";
+        String departmentName10=" Hhidgv";
 
         return new Object[][]{{departmentName1},{departmentName2},{departmentName3}
                 ,{departmentName4},{departmentName5},{departmentName6}
@@ -145,7 +145,7 @@ public class DepartmentTest {
                 ,{departmentName10}};
     }
 
-    @Test (expectedExceptions = RuntimeException.class)
+    @Test (dataProvider = "departmentNameExceptionProvider",expectedExceptions = RuntimeException.class)
     public void departmentNameExceptionTest(String departmentName){
         Department dep1= Department.newDepartmentBuilder()
                 .setDepartmentName(departmentName)
@@ -221,10 +221,10 @@ public class DepartmentTest {
 
         return new Object[][]{{dep1.checkDepartmentName(depName1),true},
                 {dep1.checkDepartmentName(depName2),true},
-                {dep1.checkDepartmentName(depName3),false},
+                {dep1.checkDepartmentName(depName3),true},
                 {dep1.checkDepartmentName(depName4),true},
                 {dep1.checkDepartmentName(depName5),false},
-                {dep1.checkDepartmentName(depName6),false}};
+                {dep1.checkDepartmentName(depName6),true}};
     }
 
     @Test(dataProvider = "departmentNameProvider")
