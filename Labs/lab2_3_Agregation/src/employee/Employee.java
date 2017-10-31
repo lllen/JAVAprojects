@@ -16,9 +16,9 @@ public class Employee implements Comparable<Employee>,Serializable{
     private String emailAddress;
     private String workingPosition;
     private double salary;
-    private final String checkFirstSecondName="^[A-Z][a-z]{3,14}(|[\\-][A-Z][a-z]{1,14})$"; // double name allowed with separator \\-
-    private final String checkPhoneNumber="^\\+380[0-9]{9}$";
-    private final String checkEmailAddress="^[A-z]\\w{3,9}+@([a-z]{2,10})\\.(com|ru|ua)$";
+    private static final String NAME_PATTERN="^[A-Z][a-z]{3,14}(|[\\-][A-Z][a-z]{1,14})$"; // double name allowed with separator \\-
+    private static final String PHONE_NUMBER ="^\\+380[0-9]{9}$";
+    private static final String EMAIL_ADDRESS_PATTERN ="^[A-z]\\w{3,9}+@([a-z]{2,10})\\.(com|ru|ua)$";
 
 
     public static EmployeeBuilder newEmployeeBuilder() {
@@ -159,7 +159,7 @@ public class Employee implements Comparable<Employee>,Serializable{
 
     // OTHERS
     public boolean checkFirstSecondName(final String firstName){
-        Pattern pattern = Pattern.compile(checkFirstSecondName);
+        Pattern pattern = Pattern.compile(NAME_PATTERN);
         Matcher matcher = pattern.matcher(firstName);
         if(matcher.matches())
             return true;
@@ -167,7 +167,7 @@ public class Employee implements Comparable<Employee>,Serializable{
     }
 
     public boolean checkPhoneNumber(String phoneNumber){
-        Pattern pattern=Pattern.compile(checkPhoneNumber);
+        Pattern pattern=Pattern.compile(PHONE_NUMBER);
         Matcher matcher=pattern.matcher(phoneNumber);
         if(matcher.matches())
             return true;
@@ -175,7 +175,7 @@ public class Employee implements Comparable<Employee>,Serializable{
     }
 
     public boolean checkEmailAddress(String emailAddress){
-        Pattern pattern=Pattern.compile(checkEmailAddress);
+        Pattern pattern=Pattern.compile(EMAIL_ADDRESS_PATTERN);
         Matcher matcher=pattern.matcher(emailAddress);
         if(matcher.matches())
             return true;
@@ -220,9 +220,9 @@ public class Employee implements Comparable<Employee>,Serializable{
                 ", emailAddress='" + emailAddress + '\'' +
                 ", workingPosition='" + workingPosition + '\'' +
                 ", salary=" + salary +
-                ", checkFirstSecondName='" + checkFirstSecondName + '\'' +
-                ", checkPhoneNumber='" + checkPhoneNumber + '\'' +
-                ", checkEmailAddress='" + checkEmailAddress + '\'' +
+                ", checkFirstSecondName='" + NAME_PATTERN + '\'' +
+                ", PHONE_NUMBER='" + PHONE_NUMBER + '\'' +
+                ", EMAIL_ADDRESS_PATTERN='" + EMAIL_ADDRESS_PATTERN + '\'' +
                 '}';
     }
 }

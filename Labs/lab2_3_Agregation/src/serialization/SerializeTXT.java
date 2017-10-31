@@ -7,9 +7,9 @@ import java.time.LocalDate;
 
 public class SerializeTXT {
 
-    public void serialization(String fileName){
+    public void serialization(String fileName1){
 
-    try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(fileName))) {
+    try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(fileName1))) {
         Employee employee1 = Employee.newEmployeeBuilder()
                 .setFirstName("Albert")
                 .setSecondName("Folt")
@@ -23,7 +23,7 @@ public class SerializeTXT {
         System.out.println("Exception during serialization : " + e);
     }
 
-    try (ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(fileName))) {
+    try (ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(fileName1))) {
         Employee ob2 = (Employee) objectInputStream.readObject();
         System.out.println("ob2 : " + ob2);
     } catch (Exception e) {

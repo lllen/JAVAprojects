@@ -9,7 +9,7 @@ import java.util.regex.Matcher;
 public class Department {
     private String departmentName;
     private ArrayList<Employee> employees;
-    private final String checkDepartmentName="^[A-z]{2,15}($|\\s[A-z]{2,15})($|\\s[A-z]{2,15}$)"; // three words allowed
+    private static final String DEPARTMENT_NAME_PATTERN ="^[A-z]{2,15}($|\\s[A-z]{2,15})($|\\s[A-z]{2,15}$)"; // three words allowed
 
    public static DepartmentBuilder newDepartmentBuilder(){
        return new Department().new DepartmentBuilder();
@@ -93,7 +93,7 @@ public class Department {
     }
 
     public boolean checkDepartmentName(String departmentName){
-        Pattern pattern=Pattern.compile(checkDepartmentName);
+        Pattern pattern=Pattern.compile(DEPARTMENT_NAME_PATTERN);
         Matcher matcher=pattern.matcher(departmentName);
         if(matcher.matches())
             return true;
