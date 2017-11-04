@@ -21,6 +21,9 @@ public class Employee implements Comparable<Employee>,Serializable{
     private static final String EMAIL_ADDRESS_PATTERN ="^[A-z]\\w{3,9}+@([a-z]{2,10})\\.(com|ru|ua)$";
 
 
+    public Employee() {
+    }
+
     public static EmployeeBuilder newEmployeeBuilder() {
         return new Employee().new EmployeeBuilder();
     }
