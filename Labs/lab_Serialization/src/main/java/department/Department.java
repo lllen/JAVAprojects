@@ -12,9 +12,9 @@ public class Department {
     private static final String DEPARTMENT_NAME_PATTERN ="^[A-z]{2,15}($|\\s[A-z]{2,15})($|\\s[A-z]{2,15}$)"; // three words allowed
 
 
-   public static DepartmentBuilder newDepartmentBuilder(){
-       return new Department().new DepartmentBuilder();
-   }
+    public static DepartmentBuilder newDepartmentBuilder(){
+        return new Department().new DepartmentBuilder();
+    }
     //BUILDER inner class
     public class DepartmentBuilder{
         public DepartmentBuilder setEmployees(ArrayList<Employee>employees){
@@ -44,10 +44,10 @@ public class Department {
 
     //SET
     public void setDepartmentName(String departmentName) throws RuntimeException{
-       if(checkDepartmentName(departmentName)) {
-           this.departmentName = departmentName;
-       }
-       throw new RuntimeException("Incorrect department name !");
+        if(checkDepartmentName(departmentName)) {
+            this.departmentName = departmentName;
+        }
+        throw new RuntimeException("Incorrect department name !");
     }
 
     public void setEmployees(ArrayList<Employee> employees) {
@@ -79,8 +79,8 @@ public class Department {
     public ArrayList<Employee> getEmployeesBySalary(double salary){
         ArrayList<Employee> empl=new ArrayList<Employee>();
         for(int i=0; i<employees.size();i++) {
-         if(   this.employees.get(i).getSalary()==salary)
-             empl.add(this.employees.get(i));
+            if(   this.employees.get(i).getSalary()==salary)
+                empl.add(this.employees.get(i));
         }
         return empl;
     }
