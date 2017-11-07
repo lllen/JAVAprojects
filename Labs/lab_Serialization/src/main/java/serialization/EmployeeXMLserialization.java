@@ -1,16 +1,24 @@
 package serialization;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import employee.Employee;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapters;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 
+
 public class EmployeeXMLserialization implements Serializing<Employee>{
 
-    public static void main(String [] args) throws IOException {
+    public static void main(String [] args) throws IOException, JAXBException {
         Employee employee=Employee.newEmployeeBuilder()
                 .setFirstName("Amanda")
                 .setSecondName("Hogvart")
@@ -28,15 +36,20 @@ public class EmployeeXMLserialization implements Serializing<Employee>{
         System.out.println(employee1.getFirstName());
     }
 
+    @XmlJavaTypeAdapter(value = LocalDateAdapter.class)
     @Override
-    public void serializingObj(Employee obj, File file) throws IOException {
-        XmlMapper mapper= (XmlMapper) new XmlMapper().registerModule(new JavaTimeModule());
-        mapper.writeValue(file,obj);
+    public void serializingObj(Employee obj, File file) throws IOException, JAXBException {
+        JAXBContext jaxbContext = JAXBContext.newInstance(Employee.class);
+        Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+        jaxbMarshaller.marshal(obj, file);
     }
 
+    @XmlJavaTypeAdapter(value = LocalDateAdapter.class)
     @Override
-    public Employee deserializingObj(File file) throws IOException {
-        XmlMapper mapper= (XmlMapper) new XmlMapper().registerModule(new JavaTimeModule());
-        return mapper.readValue(file,Employee.class);
+    public Employee deserializingObj(File file) throws IOException, JAXBException {
+        JAXBContext jaxbContext = JAXBContext.newInstance(Employee.class);
+        Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+        Employee employee = (Employee) jaxbUnmarshaller.unmarshal(file);
+        return employee;
     }
 }

@@ -1,4 +1,24 @@
+
+
 package employee;
+
+import serialization.LocalDateAdapter;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapters;
+import java.time.LocalDate;
+
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import serialization.LocalDateAdapter;
+
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapters;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -6,6 +26,9 @@ import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
+//@JsonIgnoreProperties(ignoreUnknown = true)
 public class Employee implements Comparable<Employee>,Serializable{
 
     private String firstName;
@@ -19,7 +42,7 @@ public class Employee implements Comparable<Employee>,Serializable{
     private static final String NAME_PATTERN="^[A-Z][a-z]{3,14}(|[\\-][A-Z][a-z]{1,14})$"; // double name allowed with separator \\-
     private static final String PHONE_NUMBER ="^\\+380[0-9]{9}$";
     private static final String EMAIL_ADDRESS_PATTERN ="^[A-z]\\w{3,9}+@([a-z]{2,10})\\.(com|ru|ua)$";
-
+    
 
     public Employee() {
     }
@@ -70,6 +93,8 @@ public class Employee implements Comparable<Employee>,Serializable{
             throw new RuntimeException("Incorrect e-mail address !");
         }
 
+        @XmlJavaTypeAdapter( LocalDateAdapter.class )
+        @XmlElement( name = "DateOfBirth" )
         public EmployeeBuilder setDateOfBirth(LocalDate dateOfBirth){
             Employee.this.dateOfBirth=dateOfBirth;
             return this;
@@ -80,6 +105,8 @@ public class Employee implements Comparable<Employee>,Serializable{
             return this;
         }
 
+        @XmlJavaTypeAdapter( LocalDateAdapter.class )
+        @XmlElement( name = "FirstDateAtWork" )
         public EmployeeBuilder setFirstDayAtWork(LocalDate firstDayAtWork) {
             Employee.this.firstDayAtWork = firstDayAtWork;
             return this;
@@ -118,18 +145,24 @@ public class Employee implements Comparable<Employee>,Serializable{
     public String getEmailAddress(){
         return emailAddress;}
 
+
     public String getPhoneNumber(){
         return phoneNumber;}
 
+    @JsonIgnore
     public long getWorkingExperience(){
         return ChronoUnit.YEARS.between(this.firstDayAtWork, LocalDate.now());
     }
 
+    @JsonIgnore
     public long getAge(){
         return ChronoUnit.YEARS.between(this.dateOfBirth,LocalDate.now());
     }
 
     // SET
+
+
+
 
     public void setSalary(double salary) {
         this.salary = salary;
@@ -139,6 +172,7 @@ public class Employee implements Comparable<Employee>,Serializable{
         if(checkPhoneNumber(phoneNumber)){
             this.phoneNumber=phoneNumber;
         }
+        else
         throw new RuntimeException("Incorrect phone number !");
     }
 
@@ -146,6 +180,7 @@ public class Employee implements Comparable<Employee>,Serializable{
         if(checkEmailAddress(emailAddress)) {
             this.emailAddress = emailAddress;
         }
+        else
         throw  new RuntimeException("Incorrect e-mail address !");
     }
 
@@ -177,6 +212,18 @@ public class Employee implements Comparable<Employee>,Serializable{
         return false;
     }
 
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setSecondName(String secondName) {
+        this.secondName = secondName;
+    }
+
+    public void setDateOfBirth(LocalDate dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
     public boolean checkEmailAddress(String emailAddress){
         Pattern pattern=Pattern.compile(EMAIL_ADDRESS_PATTERN);
         Matcher matcher=pattern.matcher(emailAddress);
@@ -185,6 +232,15 @@ public class Employee implements Comparable<Employee>,Serializable{
         return false;
     }
 
+
+
+    public static String getNamePattern() {
+        return NAME_PATTERN;
+    }
+
+    public static String getEmailAddressPattern() {
+        return EMAIL_ADDRESS_PATTERN;
+    }
 
     @Override
     public boolean equals(Object o) {
