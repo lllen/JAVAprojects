@@ -29,10 +29,11 @@ public class Employee implements Comparable<Employee>,Serializable{
     private String emailAddress;
     private String workingPosition;
     private double salary;
+
     private static final String NAME_PATTERN="^[A-Z][a-z]{3,14}(|[\\-][A-Z][a-z]{1,14})$"; // double name allowed with separator \\-
     private static final String PHONE_NUMBER ="^\\+380[0-9]{9}$";
     private static final String EMAIL_ADDRESS_PATTERN ="^[A-z]\\w{3,9}+@([a-z]{2,10})\\.(com|ru|ua)$";
-    
+    private static final String WORKINGPOSITION_PATTERN="^[A-z]{2,15}($|\\s[A-z]{2,15})($|\\s[A-z]{2,15}$)";
 
     public Employee() {
     }
@@ -276,6 +277,22 @@ public class Employee implements Comparable<Employee>,Serializable{
                 ", PHONE_NUMBER='" + PHONE_NUMBER + '\'' +
                 ", EMAIL_ADDRESS_PATTERN='" + EMAIL_ADDRESS_PATTERN + '\'' +
                 '}';
+    }
+
+    public void fromString(String[] str){
+        Pattern pattern_name=Pattern.compile(NAME_PATTERN);
+        Pattern pattern_emailAddress=Pattern.compile(EMAIL_ADDRESS_PATTERN);
+        Pattern pattern_pnoneNumber=Pattern.compile(PHONE_NUMBER);
+        Pattern pattern_workingPosition=Pattern.compile(WORKINGPOSITION_PATTERN);
+        Matcher matcher;
+
+        for(int i=0;i<8;i++) {
+            if (pattern_name.matcher(str[i]).matches() == true) {
+                matcher = pattern_name.matcher(str[i]);
+                this.firstName = matcher.group(1);
+            }
+        }
+
     }
 
     

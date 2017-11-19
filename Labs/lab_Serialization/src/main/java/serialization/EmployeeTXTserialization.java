@@ -1,5 +1,6 @@
 package serialization;
 
+import com.sun.org.apache.regexp.internal.RE;
 import employee.Employee;
 import jdk.internal.util.xml.impl.Input;
 
@@ -23,8 +24,9 @@ public class EmployeeTXTserialization {
                 .setDateOfBirth(LocalDate.of(1991,9,21))
                 .build();
         Writer file=new FileWriter("employee.txt");
+        Reader file1=new FileReader("employee.txt");
         o.serializingObj(employee,file);
-
+        o.deserializationObj(file1);
     }
 
 
@@ -43,11 +45,16 @@ public class EmployeeTXTserialization {
 
     }
 
-    public Employee deserializationObj(Input input){
-        Scanner scanner = new Scanner((ReadableByteChannel) input, "UTF-8");
-        String inputText = scanner.useDelimiter("\\A").next();
-        scanner.close();
-        return new Employee().fromString(inputText).build();
+    public void deserializationObj(Reader file) throws IOException {
+        BufferedReader bf = new BufferedReader(file);
+        String[] text = new String[8];
+        for(int i = 0; i < 8; i++){
+            text[i]= bf.readLine();
+        }
+
+        Employee employee=new Employee();
+        employee.fromString(text);
+        System.out.println(employee.getFirstName());
     }
 
 

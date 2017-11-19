@@ -23,7 +23,10 @@ public class EmployeeSerializationTest {
             .setDateOfBirth(LocalDate.of(1991,9,21))
             .build();
 
-    String fileName="employee.json";
+    String fileName_json="employee.json";
+    String fileName_xml="employee.xml";
+    String fileName_txt="employee.txt";
+
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /*
@@ -33,7 +36,7 @@ public class EmployeeSerializationTest {
 
     @DataProvider
     Object[][]JSONserializationEmployeeProvider() throws IOException {
-        Writer file_in=new FileWriter(fileName);
+        Writer file_in=new FileWriter(fileName_json);
         EmployeeJSONserialization jsonSerial=new EmployeeJSONserialization();
         return new Object[][]{{new EmployeeJSONserialization(),employee,file_in}};
     }
@@ -45,7 +48,7 @@ public class EmployeeSerializationTest {
 
     @DataProvider
     Object[][]JSONdeserializationEmployeeProvider() throws IOException {
-        Reader file_out=new FileReader(fileName);
+        Reader file_out=new FileReader(fileName_json);
         EmployeeJSONserialization jsonSerial=new EmployeeJSONserialization();
         return new Object[][]{{new EmployeeJSONserialization(),employee,file_out}};
     }
@@ -63,7 +66,7 @@ public class EmployeeSerializationTest {
 
     @DataProvider
     Object[][]XMLserializationEmployeeProvider() throws IOException {
-        Writer file_in=new FileWriter(fileName);
+        Writer file_in=new FileWriter(fileName_xml);
         EmployeeXMLserialization jsonSerial=new EmployeeXMLserialization();
         return new Object[][]{{new EmployeeXMLserialization(),employee,file_in}};
     }
@@ -75,15 +78,15 @@ public class EmployeeSerializationTest {
 
     @DataProvider
     Object[][]XMLdeserializationEmployeeProvider() throws IOException {
-        Reader file_out=new FileReader(fileName);
+        Reader file_out=new FileReader(fileName_xml);
         EmployeeXMLserialization jsonSerial=new EmployeeXMLserialization();
-        return new Object[][]{{new EmployeeJSONserialization(),employee,file_out}};
+        return new Object[][]{{new EmployeeXMLserialization(),employee,file_out}};
     }
 
-    @Test(dataProvider = "JSONdeserializationEmployeeProvider")
+    @Test(dataProvider = "XMLdeserializationEmployeeProvider")
     public void XMLdeserializationEmployeeTest(EmployeeXMLserialization xmlDeserial, Employee employee, Reader file_out) throws IOException, JAXBException {
         Employee employee1=xmlDeserial.deserializingObj(file_out);
-        Assert.assertEquals(employee1,employee);
+       Assert.assertEquals(employee1,employee);
     }
 
 
