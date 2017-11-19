@@ -1,0 +1,47 @@
+<department.Department>
+  <departmentName>First department</departmentName>
+  <employees>
+    <employee.Employee>
+      <firstName>Chris</firstName>
+      <secondName>Shwark</secondName>
+      <emailAddress>ChrisSHW@yandex.ua</emailAddress>
+      <workingPosition>Sale manager</workingPosition>
+      <salary>7100.0</salary>
+    </employee.Employee>
+    <employee.Employee>
+      <firstName>Tovm</firstName>
+      <secondName>Kolins</secondName>
+      <emailAddress>TKolins@yandex.ua</emailAddress>
+      <workingPosition>admin</workingPosition>
+      <salary>8580.0</salary>
+    </employee.Employee>
+    <employee.Employee>
+      <firstName>Vera</firstName>
+      <secondName>Trolt</secondName>
+      <emailAddress>veravera@yandex.ua</emailAddress>
+      <workingPosition>Sale manager</workingPosition>
+      <salary>8459.0</salary>
+    </employee.Employee>
+    <employee.Employee>
+      <firstName>Lilly</firstName>
+      <secondName>Cowblack</secondName>
+      <emailAddress>lilly@yandex.ua</emailAddress>
+      <workingPosition>data base developer</workingPosition>
+      <salary>12580.0</salary>
+    </employee.Employee>
+    <employee.Employee>
+      <firstName>Julia</firstName>
+      <secondName>Roberts</secondName>
+      <emailAddress>Juli@yandex.ua</emailAddress>
+      <workingPosition>Sale manager</workingPosition>
+      <salary>5085.0</salary>
+    </employee.Employee>
+    <employee.Employee>
+      <firstName>Andrew</firstName>
+      <secondName>Zabur</secondName>
+      <emailAddress>zabur11@yandex.ua</emailAddress>
+      <workingPosition>Main director</workingPosition>
+      <salary>10000.0</salary>
+    </employee.Employee>
+  </employees>
+</department.Department>

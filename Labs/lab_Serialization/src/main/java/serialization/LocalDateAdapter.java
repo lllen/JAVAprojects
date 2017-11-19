@@ -1,16 +1,12 @@
+/*
 package serialization;
-
-
-
 import javax.xml.bind.annotation.adapters.XmlAdapter;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 
-
 public class LocalDateAdapter
-        extends XmlAdapter<String, LocalDate>{
-
-    public LocalDateAdapter() {
-    }
+        extends XmlAdapter<String, LocalDate> {
+    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
     @Override
     public LocalDate unmarshal(String v) throws Exception {
@@ -19,11 +15,16 @@ public class LocalDateAdapter
 
     @Override
     public String marshal(LocalDate v) throws Exception {
-        if (v != null) {
+        return  formatter.format(v);
+        */
+/*if (v != null) {
             return v.toString();
         } else {
             return null;
-        }
+        }*//*
+
     }
 
+
 }
+*/

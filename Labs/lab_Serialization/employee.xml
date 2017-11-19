@@ -1,1 +1,1 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?><employee><firstName>Amanda</firstName><secondName>Hogvart</secondName><dateOfBirth/><firstDayAtWork/><emailAddress>amanda1w@mail.ua</emailAddress><workingPosition>administrator</workingPosition><salary>8950.0</salary></employee>
+{"firstName":"Amanda","secondName":"Hogvart","dateOfBirth":[1997,10,25],"firstDayAtWork":[2013,12,1],"phoneNumber":"+380992776367","emailAddress":"amanda1w@mail.ua","workingPosition":"administrator","salary":8950.0}

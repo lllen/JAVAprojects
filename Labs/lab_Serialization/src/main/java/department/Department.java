@@ -1,12 +1,15 @@
 package department;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import employee.Employee;
+
+import java.io.Serializable;
 import java.util.*;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
 
-public class Department {
+public class Department implements Serializable {
     private String departmentName;
     private ArrayList<Employee> employees;
     private static final String DEPARTMENT_NAME_PATTERN ="^[A-z]{2,15}($|\\s[A-z]{2,15})($|\\s[A-z]{2,15}$)"; // three words allowed
@@ -47,7 +50,7 @@ public class Department {
         if(checkDepartmentName(departmentName)) {
             this.departmentName = departmentName;
         }
-        throw new RuntimeException("Incorrect department name !");
+        else throw new RuntimeException("Incorrect department name !");
     }
 
     public void setEmployees(ArrayList<Employee> employees) {
@@ -59,6 +62,7 @@ public class Department {
         return departmentName;
     }
 
+    @JsonIgnore
     public Integer getNumberOfWorkers() {
         return employees.size();
     }
@@ -76,6 +80,7 @@ public class Department {
     * Method getEmployeeBySalary returns list of employees whose salary
     * equals to parameter salary
     * */
+    @JsonIgnore
     public ArrayList<Employee> getEmployeesBySalary(double salary){
         ArrayList<Employee> empl=new ArrayList<Employee>();
         for(int i=0; i<employees.size();i++) {
@@ -85,6 +90,7 @@ public class Department {
         return empl;
     }
 
+    @JsonIgnore
     public double getAverageSalary(){
         double averageSalary=0;
         for(int i=0; i<employees.size();i++) {
@@ -113,5 +119,10 @@ public class Department {
     @Override
     public int hashCode() {
         return Objects.hash(departmentName, employees);
+    }
+
+    @Override
+    public String toString() {
+        return super.toString();
     }
 }

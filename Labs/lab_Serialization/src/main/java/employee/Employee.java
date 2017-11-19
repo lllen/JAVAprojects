@@ -1,19 +1,11 @@
-
-
 package employee;
-
-import serialization.LocalDateAdapter;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapters;
 import java.time.LocalDate;
-
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import serialization.LocalDateAdapter;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -27,8 +19,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @XmlRootElement
-@XmlAccessorType(XmlAccessType.FIELD)
-//@JsonIgnoreProperties(ignoreUnknown = true)
 public class Employee implements Comparable<Employee>,Serializable{
 
     private String firstName;
@@ -93,20 +83,17 @@ public class Employee implements Comparable<Employee>,Serializable{
             throw new RuntimeException("Incorrect e-mail address !");
         }
 
-        @XmlJavaTypeAdapter( LocalDateAdapter.class )
-        @XmlElement( name = "DateOfBirth" )
         public EmployeeBuilder setDateOfBirth(LocalDate dateOfBirth){
             Employee.this.dateOfBirth=dateOfBirth;
             return this;
         }
+
 
         public EmployeeBuilder setWorkingPosition(String workingPosition) {
             Employee.this.workingPosition = workingPosition;
             return this;
         }
 
-        @XmlJavaTypeAdapter( LocalDateAdapter.class )
-        @XmlElement( name = "FirstDateAtWork" )
         public EmployeeBuilder setFirstDayAtWork(LocalDate firstDayAtWork) {
             Employee.this.firstDayAtWork = firstDayAtWork;
             return this;
@@ -163,11 +150,12 @@ public class Employee implements Comparable<Employee>,Serializable{
 
 
 
-
+    @XmlElement
     public void setSalary(double salary) {
         this.salary = salary;
     }
 
+    @XmlElement
     public void setPhoneNumber (String phoneNumber)throws RuntimeException{
         if(checkPhoneNumber(phoneNumber)){
             this.phoneNumber=phoneNumber;
@@ -176,6 +164,7 @@ public class Employee implements Comparable<Employee>,Serializable{
         throw new RuntimeException("Incorrect phone number !");
     }
 
+    @XmlElement
     public void setEmailAddress(String emailAddress)throws RuntimeException{
         if(checkEmailAddress(emailAddress)) {
             this.emailAddress = emailAddress;
@@ -184,11 +173,13 @@ public class Employee implements Comparable<Employee>,Serializable{
         throw  new RuntimeException("Incorrect e-mail address !");
     }
 
+    @XmlElement
     public void setWorkingPosition(String workingPosition){
 
         this.workingPosition = workingPosition;
 
     }
+
 
     public void setFirstDayAtWork(LocalDate firstDayAtWork) {
         this.firstDayAtWork = firstDayAtWork;
@@ -212,6 +203,7 @@ public class Employee implements Comparable<Employee>,Serializable{
         return false;
     }
 
+
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
@@ -219,6 +211,7 @@ public class Employee implements Comparable<Employee>,Serializable{
     public void setSecondName(String secondName) {
         this.secondName = secondName;
     }
+
 
     public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
@@ -231,8 +224,6 @@ public class Employee implements Comparable<Employee>,Serializable{
             return true;
         return false;
     }
-
-
 
     public static String getNamePattern() {
         return NAME_PATTERN;
@@ -286,4 +277,6 @@ public class Employee implements Comparable<Employee>,Serializable{
                 ", EMAIL_ADDRESS_PATTERN='" + EMAIL_ADDRESS_PATTERN + '\'' +
                 '}';
     }
+
+    
 }
