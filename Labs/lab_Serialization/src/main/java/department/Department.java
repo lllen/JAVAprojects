@@ -5,14 +5,18 @@ import employee.Employee;
 
 import java.io.Serializable;
 import java.util.*;
+import java.util.function.Supplier;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 public class Department implements Serializable {
     private String departmentName;
-    private ArrayList<Employee> employees;
+    private List<Employee> employees;
     private static final String DEPARTMENT_NAME_PATTERN ="^[A-z]{2,15}($|\\s[A-z]{2,15})($|\\s[A-z]{2,15}$)"; // three words allowed
+
 
 
     public static DepartmentBuilder newDepartmentBuilder(){
@@ -35,7 +39,7 @@ public class Department implements Serializable {
             return departmentName;
         }
 
-        public ArrayList<Employee> getEmployees(){
+        public List<Employee> getEmployees(){
             return Department.this.employees;
         }
 
@@ -62,17 +66,24 @@ public class Department implements Serializable {
         return departmentName;
     }
 
+
+
     @JsonIgnore
     public Integer getNumberOfWorkers() {
         return employees.size();
     }
 
-    public ArrayList<Employee> getEmployees() {
+    public List<Employee> getEmployees() {
         return employees;
     }
 
     public void sortEmployees(){
-        Collections.sort(employees);
+       // Collections.sort(employees);
+        List<Employee>sortedList=this.employees.stream().sorted().collect(Collectors.toList());
+        //sortedList.forEach(employee -> employee.toString());
+        this.employees=  sortedList;
+        employees.add(employees.get(0));
+
         //return employees;
     }
 
@@ -87,6 +98,11 @@ public class Department implements Serializable {
             if(   this.employees.get(i).getSalary()==salary)
                 empl.add(this.employees.get(i));
         }
+        /*empl=this.getEmployees();
+        Department department=new Department();
+        department=this;
+        department.getEmployees().stream().sorted().collect(Collectors.toList());*/
+
         return empl;
     }
 
@@ -97,6 +113,7 @@ public class Department implements Serializable {
             averageSalary+=this.employees.get(i).getSalary();
         }
         return averageSalary/this.employees.size();
+        //return employees.stream().mapToInt(Employee::getAge).average().getAsDouble();
     }
 
     public boolean checkDepartmentName(String departmentName){
@@ -123,6 +140,13 @@ public class Department implements Serializable {
 
     @Override
     public String toString() {
-        return super.toString();
+        return "departmentName='" + departmentName + "'\n" +
+                "employees='" + employees + "'";
+    }
+
+
+    public void fromString(){
+        String DEPARTMENT_NAME="(departmentName\\=\')([A-z]{2,15}(|\\s[A-z]{2,15})(|\\s[A-z]{2,15})(\')";
+
     }
 }

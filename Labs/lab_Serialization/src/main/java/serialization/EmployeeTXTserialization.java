@@ -4,32 +4,31 @@ import com.sun.org.apache.regexp.internal.RE;
 import employee.Employee;
 import jdk.internal.util.xml.impl.Input;
 
+import javax.xml.bind.JAXBException;
 import java.io.*;
 import java.nio.channels.ReadableByteChannel;
 import java.time.LocalDate;
 import java.util.Scanner;
 
-public class EmployeeTXTserialization {
-
-    public static void main(String [] args) throws IOException {
+public class EmployeeTXTserialization implements Serializing<Employee>{
+  /*  public static void main(String [] args) throws IOException, JAXBException {
         EmployeeTXTserialization o=new EmployeeTXTserialization();
         Employee employee=Employee.newEmployeeBuilder()
                 .setFirstName("Miley")
                 .setSecondName("Cyrus")
-                .setEmailAddress("mileycRay@gmail.com")
                 .setPhoneNumber("+380992776367")
                 .setWorkingPosition("office admin")
-                .setSalary(9850)
+                .setSalary(9850.0)
                 .setFirstDayAtWork(LocalDate.of(2013,10,10))
                 .setDateOfBirth(LocalDate.of(1991,9,21))
                 .build();
         Writer file=new FileWriter("employee.txt");
         Reader file1=new FileReader("employee.txt");
         o.serializingObj(employee,file);
-        o.deserializationObj(file1);
+        o.deserializingObj(file1);
     }
 
-
+  */  @Override
     public void serializingObj(Employee employee,Writer file){
         try{
             file.write(employee.toString());
@@ -45,16 +44,17 @@ public class EmployeeTXTserialization {
 
     }
 
-    public void deserializationObj(Reader file) throws IOException {
+    @Override
+    public Employee deserializingObj(Reader file) throws IOException, JAXBException {
         BufferedReader bf = new BufferedReader(file);
-        String[] text = new String[8];
-        for(int i = 0; i < 8; i++){
-            text[i]= bf.readLine();
-        }
+        String [] text = new String[10];
 
+        for(int i=0;i<text.length;i++) {
+            text[i] = bf.readLine();
+        }
         Employee employee=new Employee();
         employee.fromString(text);
-        System.out.println(employee.getFirstName());
+        return employee;
     }
 
 

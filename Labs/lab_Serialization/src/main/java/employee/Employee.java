@@ -1,18 +1,11 @@
 package employee;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapters;
 import java.time.LocalDate;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapters;
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 import java.util.regex.Matcher;
@@ -31,13 +24,18 @@ public class Employee implements Comparable<Employee>,Serializable{
     private double salary;
 
     private static final String NAME_PATTERN="^[A-Z][a-z]{3,14}(|[\\-][A-Z][a-z]{1,14})$"; // double name allowed with separator \\-
-    private static final String PHONE_NUMBER ="^\\+380[0-9]{9}$";
+    private static final String PHONE_NUMBER_PATTERN ="^\\+380[0-9]{9}$";
     private static final String EMAIL_ADDRESS_PATTERN ="^[A-z]\\w{3,9}+@([a-z]{2,10})\\.(com|ru|ua)$";
     private static final String WORKINGPOSITION_PATTERN="^[A-z]{2,15}($|\\s[A-z]{2,15})($|\\s[A-z]{2,15}$)";
 
-    public Employee() {
-    }
 
+    /*public Employee() {
+    }*/
+
+    public static void main(String [] args){
+        Employee employee=new Employee();
+
+    }
     public static EmployeeBuilder newEmployeeBuilder() {
         return new Employee().new EmployeeBuilder();
     }
@@ -106,6 +104,8 @@ public class Employee implements Comparable<Employee>,Serializable{
     }
 
     // GET
+
+
 
     public double getSalary() {
         return salary;
@@ -196,8 +196,9 @@ public class Employee implements Comparable<Employee>,Serializable{
         return false;
     }
 
+
     public boolean checkPhoneNumber(String phoneNumber){
-        Pattern pattern=Pattern.compile(PHONE_NUMBER);
+        Pattern pattern=Pattern.compile(PHONE_NUMBER_PATTERN);
         Matcher matcher=pattern.matcher(phoneNumber);
         if(matcher.matches())
             return true;
@@ -264,36 +265,70 @@ public class Employee implements Comparable<Employee>,Serializable{
 
     @Override
     public String toString() {
-        return "Employee{" +
-                "firstName='" + firstName + '\'' +
-                ", secondName='" + secondName + '\'' +
-                ", dateOfBirth=" + dateOfBirth +
-                ", firstDayAtWork=" + firstDayAtWork +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", emailAddress='" + emailAddress + '\'' +
-                ", workingPosition='" + workingPosition + '\'' +
-                ", salary=" + salary +
-                ", checkFirstSecondName='" + NAME_PATTERN + '\'' +
-                ", PHONE_NUMBER='" + PHONE_NUMBER + '\'' +
-                ", EMAIL_ADDRESS_PATTERN='" + EMAIL_ADDRESS_PATTERN + '\'' +
-                '}';
+        return
+                "firstName='" + firstName + "'\n" +
+                "secondName='" + secondName + "'\n" +
+                "dateOfBirth='" + dateOfBirth + "'\n" +
+                "firstDayAtWork='" + firstDayAtWork + "'\n" +
+                "phoneNumber='" + phoneNumber + "'\n" +
+                "emailAddress='" + emailAddress + "'\n" +
+                "workingPosition='" + workingPosition + "'\n" +
+                "salary='" + salary+"'\n\n";
     }
 
-    public void fromString(String[] str){
-        Pattern pattern_name=Pattern.compile(NAME_PATTERN);
-        Pattern pattern_emailAddress=Pattern.compile(EMAIL_ADDRESS_PATTERN);
-        Pattern pattern_pnoneNumber=Pattern.compile(PHONE_NUMBER);
-        Pattern pattern_workingPosition=Pattern.compile(WORKINGPOSITION_PATTERN);
+    public void fromString(String[] str) {
+        String FIRST_NAME = "(firstName\\=\')([A-Z][a-z]{3,14}(|[\\-][A-Z][a-z]{1,14}))(\')";
+        String SECOND_NAME = "(secondName\\=\')([A-Z][a-z]{3,14}(|[\\-][A-Z][a-z]{1,14}))(\')";
+        String EMAIL_ADDRESS = "(emailAddress\\=\')([A-z]\\w{3,9}+@([a-z]{2,10})\\.(com|ru|ua))(\')";
+        String PHONE_NUMBER = "(phoneNumber\\=\')(\\+380[0-9]{9})(\')";
+        String WORKING_POSITION = "(workingPosition\\=\')([A-z]{2,15}(|\\s[A-z]{2,15})(|\\s[A-z]{2,15}))(\')";
+        String SALARY = "(salary\\=\')([0-9]{4,6}\\.[0-9]{1,})(\')";
+        String DATE_OF_BIRTH = "(dateOfBirth\\=\')([0-9]{4}[\\-][0-9]{2}[\\-][0-9]{2})(\')";
+        String FIRST_DAY_AT_WORK = "(firstDayAtWork\\=\')([0-9]{4}[\\-][0-9]{2}[\\-][0-9]{2})(\')";
+
+        Pattern pattern_firstname = Pattern.compile(FIRST_NAME);
+        Pattern pattern_secondname = Pattern.compile(SECOND_NAME);
+        Pattern pattern_emailAddress = Pattern.compile(EMAIL_ADDRESS);
+        Pattern pattern_pnoneNumber = Pattern.compile(PHONE_NUMBER);
+        Pattern pattern_workingPosition = Pattern.compile(WORKING_POSITION);
+        Pattern pattern_salary = Pattern.compile(SALARY);
+        Pattern pattern_dataOfBirth = Pattern.compile(DATE_OF_BIRTH);
+        Pattern pattern_firstDayAtWork = Pattern.compile(FIRST_DAY_AT_WORK);
         Matcher matcher;
 
-        for(int i=0;i<8;i++) {
-            if (pattern_name.matcher(str[i]).matches() == true) {
-                matcher = pattern_name.matcher(str[i]);
-                this.firstName = matcher.group(1);
+        for (int i = 0; i < str.length; i++) {
+            matcher = pattern_firstname.matcher(str[i]);
+            if (matcher.matches()) {
+                this.firstName = matcher.group(2);
+            }
+            matcher = pattern_secondname.matcher(str[i]);
+            if (matcher.matches()) {
+                this.secondName = matcher.group(2);
+            }
+            matcher = pattern_dataOfBirth.matcher(str[i]);
+            if (matcher.matches()) {
+                this.dateOfBirth = LocalDate.parse(matcher.group(2));
+            }
+            matcher = pattern_firstDayAtWork.matcher(str[i]);
+            if (matcher.matches()) {
+                this.firstDayAtWork = LocalDate.parse(matcher.group(2));
+            }
+            matcher = pattern_pnoneNumber.matcher(str[i]);
+            if (matcher.matches()) {
+                this.phoneNumber=matcher.group(2);
+            }
+            matcher = pattern_emailAddress.matcher(str[i]);
+            if (matcher.matches()) {
+                this.emailAddress=matcher.group(2);
+            }
+            matcher = pattern_workingPosition.matcher(str[i]);
+            if (matcher.matches()) {
+                this.workingPosition=matcher.group(2);
+            }
+            matcher = pattern_salary.matcher(str[i]);
+            if (matcher.matches()) {
+                this.salary=Double.parseDouble(matcher.group(2));
             }
         }
-
     }
-
-    
 }

@@ -1,5 +1,6 @@
 package serializationTest;
 
+//import employee.Employee;
 import employee.Employee;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
@@ -12,6 +13,8 @@ import java.io.*;
 import java.time.LocalDate;
 
 public class EmployeeSerializationTest {
+
+
     Employee employee=Employee.newEmployeeBuilder()
             .setFirstName("Miley")
             .setSecondName("Cyrus")
@@ -22,6 +25,12 @@ public class EmployeeSerializationTest {
             .setFirstDayAtWork(LocalDate.of(2013,10,10))
             .setDateOfBirth(LocalDate.of(1991,9,21))
             .build();
+
+    public void m(){
+        Employee test1Employee = new Employee();
+        test1Employee.setFirstName("Miley");
+    }
+
 
     String fileName_json="employee.json";
     String fileName_xml="employee.xml";
