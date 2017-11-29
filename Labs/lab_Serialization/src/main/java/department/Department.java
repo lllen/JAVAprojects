@@ -88,29 +88,39 @@ public class Department implements Serializable {
     * equals to parameter salary
     * */
     @JsonIgnore
-    public ArrayList<Employee> getEmployeesBySalary(double salary){
-        ArrayList<Employee> empl=new ArrayList<Employee>();
-        for(int i=0; i<employees.size();i++) {
+    public List<Employee> getEmployeesBySalary(double salary){
+        List<Employee> empl=new ArrayList<>();
+        /*for(int i=0; i<employees.size();i++) {
             if(   this.employees.get(i).getSalary()==salary)
                 empl.add(this.employees.get(i));
-        }
-        /*empl=this.getEmployees();
+        }*/
         Department department=new Department();
         department=this;
-        department.getEmployees().stream().sorted().collect(Collectors.toList());*/
+        empl=department.getEmployees().stream().filter((p)-> p.getSalary()==salary).collect(Collectors.toList());
 
         return empl;
     }
 
     @JsonIgnore
     public double getAverageSalary(){
-        double averageSalary=0;
+        /*double averageSalary=0;
         for(int i=0; i<employees.size();i++) {
             averageSalary+=this.employees.get(i).getSalary();
         }
-        return averageSalary/this.employees.size();
-        //return employees.stream().mapToInt(Employee::getAge).average().getAsDouble();
+        return averageSalary/this.employees.size();*/
+
+        Department department=new Department();
+        department=this;
+        return this.employees.stream().mapToDouble(Employee::getSalary).average().getAsDouble();
     }
+
+    @JsonIgnore
+    public double getAverageAge(){
+        Department department=new Department();
+        department=this;
+        return this.employees.stream().mapToDouble(Employee::getAge).average().getAsDouble();
+    }
+
 
     public boolean checkDepartmentName(String departmentName){
         Pattern pattern=Pattern.compile(DEPARTMENT_NAME_PATTERN);

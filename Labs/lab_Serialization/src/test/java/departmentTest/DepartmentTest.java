@@ -5,6 +5,8 @@ import employee.Employee;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 
@@ -70,6 +72,53 @@ public class DepartmentTest {
     @Test(dataProvider =  "EmployeesAverageSalaryProvider")
     public void testAverageSalary(double averageSalary,double expected_averageSalary) {
         Assert.assertEquals(averageSalary,expected_averageSalary);
+    }
+
+    @DataProvider
+    Object[][]EmployeeAverageAgeProvider(){
+        Employee empl1 = Employee.newEmployeeBuilder()
+                .setDateOfBirth(LocalDate.of(2000,2,12)) // 17
+                .build();
+
+        Employee empl2 = Employee.newEmployeeBuilder()
+                .setDateOfBirth(LocalDate.of(1992,5,12)) // 25
+                .build();
+
+        Employee empl3 =Employee.newEmployeeBuilder()
+                .setDateOfBirth(LocalDate.of(1998,10,12)) // 19
+                .build();
+
+        Employee empl4 = Employee.newEmployeeBuilder()
+                .setDateOfBirth(LocalDate.of(1987,11,12)) // 30
+                .build();
+
+        Employee empl5 = Employee.newEmployeeBuilder()
+                .setDateOfBirth(LocalDate.of(1995,2,12)) // 22
+                .build();
+
+        Employee empl6 =Employee.newEmployeeBuilder()
+                .setDateOfBirth(LocalDate.of(1992,9,12)) // 25
+                .build();
+
+        ArrayList<Employee> employeesArray1 = new ArrayList<Employee>();
+        employeesArray1.add(empl1);
+        employeesArray1.add(empl2);
+        employeesArray1.add(empl3);
+        employeesArray1.add(empl4);
+        employeesArray1.add(empl5);
+        employeesArray1.add(empl6);
+
+        Department dep1=Department.newDepartmentBuilder()
+                .setEmployees(employeesArray1)
+                .build();
+
+
+        return new Object[][]{{dep1, 23.0}};
+    }
+
+    @Test(dataProvider = "EmployeeAverageAgeProvider")
+    public void EmployeeAverageAgeTest(Department department, double expected_avg_age){
+        Assert.assertEquals(department.getAverageAge(),expected_avg_age);
     }
 
     @DataProvider
