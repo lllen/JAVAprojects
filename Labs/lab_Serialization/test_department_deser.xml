@@ -1,0 +1,125 @@
+<department.Department>
+  <departmentName>XML department</departmentName>
+  <employees>
+    <employee.Employee>
+      <firstName>Chris</firstName>
+      <secondName>Shwark</secondName>
+      <dateOfBirth resolves-to="java.time.Ser">
+        <byte>3</byte>
+        <int>2000</int>
+        <byte>12</byte>
+        <byte>5</byte>
+      </dateOfBirth>
+      <firstDayAtWork resolves-to="java.time.Ser">
+        <byte>3</byte>
+        <int>2016</int>
+        <byte>11</byte>
+        <byte>12</byte>
+      </firstDayAtWork>
+      <phoneNumber>+380506612713</phoneNumber>
+      <emailAddress>ChrisSHW@yandex.ua</emailAddress>
+      <workingPosition>Sale manager</workingPosition>
+      <salary>7100.0</salary>
+    </employee.Employee>
+    <employee.Employee>
+      <firstName>Tovm</firstName>
+      <secondName>Kolins</secondName>
+      <dateOfBirth resolves-to="java.time.Ser">
+        <byte>3</byte>
+        <int>1990</int>
+        <byte>1</byte>
+        <byte>7</byte>
+      </dateOfBirth>
+      <firstDayAtWork resolves-to="java.time.Ser">
+        <byte>3</byte>
+        <int>2013</int>
+        <byte>10</byte>
+        <byte>2</byte>
+      </firstDayAtWork>
+      <phoneNumber>+380506812811</phoneNumber>
+      <emailAddress>TKolins@yandex.ua</emailAddress>
+      <workingPosition>admin</workingPosition>
+      <salary>8580.0</salary>
+    </employee.Employee>
+    <employee.Employee>
+      <firstName>Vera</firstName>
+      <secondName>Trolt</secondName>
+      <dateOfBirth resolves-to="java.time.Ser">
+        <byte>3</byte>
+        <int>1995</int>
+        <byte>9</byte>
+        <byte>15</byte>
+      </dateOfBirth>
+      <firstDayAtWork resolves-to="java.time.Ser">
+        <byte>3</byte>
+        <int>2016</int>
+        <byte>3</byte>
+        <byte>10</byte>
+      </firstDayAtWork>
+      <phoneNumber>+380996612817</phoneNumber>
+      <emailAddress>veravera@yandex.ua</emailAddress>
+      <workingPosition>Sale manager</workingPosition>
+      <salary>8459.0</salary>
+    </employee.Employee>
+    <employee.Employee>
+      <firstName>Lilly</firstName>
+      <secondName>Cowblack</secondName>
+      <dateOfBirth resolves-to="java.time.Ser">
+        <byte>3</byte>
+        <int>1994</int>
+        <byte>11</byte>
+        <byte>22</byte>
+      </dateOfBirth>
+      <firstDayAtWork resolves-to="java.time.Ser">
+        <byte>3</byte>
+        <int>2011</int>
+        <byte>11</byte>
+        <byte>23</byte>
+      </firstDayAtWork>
+      <phoneNumber>+380956612799</phoneNumber>
+      <emailAddress>lilly@yandex.ua</emailAddress>
+      <workingPosition>data base developer</workingPosition>
+      <salary>12580.0</salary>
+    </employee.Employee>
+    <employee.Employee>
+      <firstName>Julia</firstName>
+      <secondName>Roberts</secondName>
+      <dateOfBirth resolves-to="java.time.Ser">
+        <byte>3</byte>
+        <int>1992</int>
+        <byte>12</byte>
+        <byte>5</byte>
+      </dateOfBirth>
+      <firstDayAtWork resolves-to="java.time.Ser">
+        <byte>3</byte>
+        <int>2013</int>
+        <byte>11</byte>
+        <byte>12</byte>
+      </firstDayAtWork>
+      <phoneNumber>+380666612713</phoneNumber>
+      <emailAddress>Juli@yandex.ua</emailAddress>
+      <workingPosition>Sale manager</workingPosition>
+      <salary>5085.0</salary>
+    </employee.Employee>
+    <employee.Employee>
+      <firstName>Andrew</firstName>
+      <secondName>Zabur</secondName>
+      <dateOfBirth resolves-to="java.time.Ser">
+        <byte>3</byte>
+        <int>1998</int>
+        <byte>10</byte>
+        <byte>9</byte>
+      </dateOfBirth>
+      <firstDayAtWork resolves-to="java.time.Ser">
+        <byte>3</byte>
+        <int>2017</int>
+        <byte>11</byte>
+        <byte>12</byte>
+      </firstDayAtWork>
+      <phoneNumber>+380999912713</phoneNumber>
+      <emailAddress>zabur11@yandex.ua</emailAddress>
+      <workingPosition>Main director</workingPosition>
+      <salary>10000.0</salary>
+    </employee.Employee>
+  </employees>
+</department.Department>

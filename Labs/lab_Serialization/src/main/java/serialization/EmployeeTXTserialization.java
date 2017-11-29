@@ -11,27 +11,11 @@ import java.time.LocalDate;
 import java.util.Scanner;
 
 public class EmployeeTXTserialization implements Serializing<Employee>{
-  /*  public static void main(String [] args) throws IOException, JAXBException {
-        EmployeeTXTserialization o=new EmployeeTXTserialization();
-        Employee employee=Employee.newEmployeeBuilder()
-                .setFirstName("Miley")
-                .setSecondName("Cyrus")
-                .setPhoneNumber("+380992776367")
-                .setWorkingPosition("office admin")
-                .setSalary(9850.0)
-                .setFirstDayAtWork(LocalDate.of(2013,10,10))
-                .setDateOfBirth(LocalDate.of(1991,9,21))
-                .build();
-        Writer file=new FileWriter("employee.txt");
-        Reader file1=new FileReader("employee.txt");
-        o.serializingObj(employee,file);
-        o.deserializingObj(file1);
-    }
 
-  */  @Override
+    @Override
     public void serializingObj(Employee employee,Writer file){
         try{
-            file.write(employee.toString());
+            file.write(employee.formString());
             file.flush();
             file.close();
         }catch (FileNotFoundException e) {
@@ -47,7 +31,7 @@ public class EmployeeTXTserialization implements Serializing<Employee>{
     @Override
     public Employee deserializingObj(Reader file) throws IOException, JAXBException {
         BufferedReader bf = new BufferedReader(file);
-        String [] text = new String[10];
+        String [] text = new String[8];
 
         for(int i=0;i<text.length;i++) {
             text[i] = bf.readLine();

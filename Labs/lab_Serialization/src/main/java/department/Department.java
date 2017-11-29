@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import employee.Employee;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.function.Supplier;
 import java.util.regex.Pattern;
@@ -24,7 +25,7 @@ public class Department implements Serializable {
     }
     //BUILDER inner class
     public class DepartmentBuilder{
-        public DepartmentBuilder setEmployees(ArrayList<Employee>employees){
+        public DepartmentBuilder setEmployees(List<Employee>employees){
             Department.this.employees=employees;
             return this;
         }
@@ -57,7 +58,7 @@ public class Department implements Serializable {
         else throw new RuntimeException("Incorrect department name !");
     }
 
-    public void setEmployees(ArrayList<Employee> employees) {
+    public void setEmployees(List<Employee> employees) {
         this.employees = employees;
     }
 
@@ -78,13 +79,8 @@ public class Department implements Serializable {
     }
 
     public void sortEmployees(){
-       // Collections.sort(employees);
         List<Employee>sortedList=this.employees.stream().sorted().collect(Collectors.toList());
-        //sortedList.forEach(employee -> employee.toString());
         this.employees=  sortedList;
-        employees.add(employees.get(0));
-
-        //return employees;
     }
 
     /*
@@ -145,8 +141,39 @@ public class Department implements Serializable {
     }
 
 
-    public void fromString(){
-        String DEPARTMENT_NAME="(departmentName\\=\')([A-z]{2,15}(|\\s[A-z]{2,15})(|\\s[A-z]{2,15})(\')";
+    public void fromString(List<String> text) {
+        String DEPARTMENT_NAME = "(departmentName\\=\')([A-z]{2,15}(|\\s[A-z]{2,15})(|\\s[A-z]{2,15}))(\')";
 
-    }
+        Pattern pattern_departmentName = Pattern.compile(DEPARTMENT_NAME);
+        Matcher matcher;
+
+        int n=(text.size()-2)/8;
+        Employee[] employee=new Employee[n];
+        for(int i=0;i<n;i++){
+            employee[i]=new Employee();
+        }
+
+
+        List<Employee> employees = new ArrayList<Employee>();
+        String [] strForEmployeeobj=new String[8];
+
+        matcher = pattern_departmentName.matcher(text.get(0).toString());
+        if (matcher.matches()) {
+            this.setDepartmentName(matcher.group(2));
+        }
+        int i=2;
+        int k=0;
+      while(i!=text.size()){
+            for(int j=0;j<8;j++) {
+                strForEmployeeobj[j]= text.get(i);
+                i++;
+            }
+            employee[k].fromString(strForEmployeeobj);
+            employees.add(employee[k]);
+            k++;
+
+        }
+        this.setEmployees(employees);
+
+        }
 }

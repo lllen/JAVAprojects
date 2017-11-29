@@ -24,18 +24,11 @@ public class Employee implements Comparable<Employee>,Serializable{
     private double salary;
 
     private static final String NAME_PATTERN="^[A-Z][a-z]{3,14}(|[\\-][A-Z][a-z]{1,14})$"; // double name allowed with separator \\-
-    private static final String PHONE_NUMBER_PATTERN ="^\\+380[0-9]{9}$";
+    private static final String PHONE_NUMBER_PATTERN = "^\\+380[0-9]{9}$";
     private static final String EMAIL_ADDRESS_PATTERN ="^[A-z]\\w{3,9}+@([a-z]{2,10})\\.(com|ru|ua)$";
     private static final String WORKINGPOSITION_PATTERN="^[A-z]{2,15}($|\\s[A-z]{2,15})($|\\s[A-z]{2,15}$)";
 
 
-    /*public Employee() {
-    }*/
-
-    public static void main(String [] args){
-        Employee employee=new Employee();
-
-    }
     public static EmployeeBuilder newEmployeeBuilder() {
         return new Employee().new EmployeeBuilder();
     }
@@ -176,7 +169,6 @@ public class Employee implements Comparable<Employee>,Serializable{
 
     @XmlElement
     public void setWorkingPosition(String workingPosition){
-
         this.workingPosition = workingPosition;
 
     }
@@ -266,14 +258,26 @@ public class Employee implements Comparable<Employee>,Serializable{
     @Override
     public String toString() {
         return
-                "firstName='" + firstName + "'\n" +
+                "\nfirstName='" + firstName + "'\n" +
                 "secondName='" + secondName + "'\n" +
                 "dateOfBirth='" + dateOfBirth + "'\n" +
                 "firstDayAtWork='" + firstDayAtWork + "'\n" +
                 "phoneNumber='" + phoneNumber + "'\n" +
                 "emailAddress='" + emailAddress + "'\n" +
                 "workingPosition='" + workingPosition + "'\n" +
-                "salary='" + salary+"'\n\n";
+                "salary='" + salary + "'";
+    }
+
+    public String formString() {
+        return
+                "firstName='" + firstName + "'\n" +
+                        "secondName='" + secondName + "'\n" +
+                        "dateOfBirth='" + dateOfBirth + "'\n" +
+                        "firstDayAtWork='" + firstDayAtWork + "'\n" +
+                        "phoneNumber='" + phoneNumber + "'\n" +
+                        "emailAddress='" + emailAddress + "'\n" +
+                        "workingPosition='" + workingPosition + "'\n" +
+                        "salary='" + salary + "'";
     }
 
     public void fromString(String[] str) {
@@ -282,7 +286,7 @@ public class Employee implements Comparable<Employee>,Serializable{
         String EMAIL_ADDRESS = "(emailAddress\\=\')([A-z]\\w{3,9}+@([a-z]{2,10})\\.(com|ru|ua))(\')";
         String PHONE_NUMBER = "(phoneNumber\\=\')(\\+380[0-9]{9})(\')";
         String WORKING_POSITION = "(workingPosition\\=\')([A-z]{2,15}(|\\s[A-z]{2,15})(|\\s[A-z]{2,15}))(\')";
-        String SALARY = "(salary\\=\')([0-9]{4,6}\\.[0-9]{1,})(\')";
+        String SALARY = "(salary\\=\')([0-9]{4,}\\.[0-9]{1})(\')(,|\\]\'|)";
         String DATE_OF_BIRTH = "(dateOfBirth\\=\')([0-9]{4}[\\-][0-9]{2}[\\-][0-9]{2})(\')";
         String FIRST_DAY_AT_WORK = "(firstDayAtWork\\=\')([0-9]{4}[\\-][0-9]{2}[\\-][0-9]{2})(\')";
 
@@ -296,11 +300,19 @@ public class Employee implements Comparable<Employee>,Serializable{
         Pattern pattern_firstDayAtWork = Pattern.compile(FIRST_DAY_AT_WORK);
         Matcher matcher;
 
+
         for (int i = 0; i < str.length; i++) {
             matcher = pattern_firstname.matcher(str[i]);
             if (matcher.matches()) {
                 this.firstName = matcher.group(2);
             }
+
+            matcher = pattern_salary.matcher(str[i]);
+            if (matcher.matches()) {
+                this.salary = Double.parseDouble(matcher.group(2));
+
+            }
+
             matcher = pattern_secondname.matcher(str[i]);
             if (matcher.matches()) {
                 this.secondName = matcher.group(2);
@@ -315,20 +327,17 @@ public class Employee implements Comparable<Employee>,Serializable{
             }
             matcher = pattern_pnoneNumber.matcher(str[i]);
             if (matcher.matches()) {
-                this.phoneNumber=matcher.group(2);
+                this.phoneNumber = matcher.group(2);
             }
             matcher = pattern_emailAddress.matcher(str[i]);
             if (matcher.matches()) {
-                this.emailAddress=matcher.group(2);
+                this.emailAddress = matcher.group(2);
             }
             matcher = pattern_workingPosition.matcher(str[i]);
             if (matcher.matches()) {
-                this.workingPosition=matcher.group(2);
-            }
-            matcher = pattern_salary.matcher(str[i]);
-            if (matcher.matches()) {
-                this.salary=Double.parseDouble(matcher.group(2));
+                this.workingPosition = matcher.group(2);
             }
         }
     }
 }
+

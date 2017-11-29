@@ -1,59 +1,15 @@
 package serialization;
 
+import com.sun.org.apache.regexp.internal.RE;
 import department.Department;
 import employee.Employee;
 
 import javax.xml.bind.JAXBException;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class DepartmentTXTserialization implements Serializing<Department> {
-
-
-    public static void main(String [] args) throws IOException {
-        Employee empl1 = Employee.newEmployeeBuilder()
-                .setFirstName("Agjf")
-                .setSecondName("Jonat")
-                .setSalary(5589.0)
-                .build();
-
-        Employee empl2 = Employee.newEmployeeBuilder()
-                .setSecondName("Drad")
-                .build();
-
-        Employee empl3 = Employee.newEmployeeBuilder()
-                .setSecondName("Luis")
-                .build();
-
-        Employee empl4 = Employee.newEmployeeBuilder()
-                .setSecondName("Jordan")
-                .build();
-
-        Employee empl5 = Employee.newEmployeeBuilder()
-                .setSecondName("Kolas")
-                .build();
-
-        Employee empl6 = Employee.newEmployeeBuilder()
-                .setSecondName("Molpan")
-                .build();
-
-        ArrayList<Employee> employeesArray1 = new ArrayList<Employee>();
-        employeesArray1.add(empl1);
-        employeesArray1.add(empl2);
-        employeesArray1.add(empl3);
-        employeesArray1.add(empl4);
-        employeesArray1.add(empl5);
-        employeesArray1.add(empl6);
-
-        Department department=Department.newDepartmentBuilder()
-                .setEmployees(employeesArray1)
-                .build();
-
-        Writer file=new FileWriter("department.txt");
-        DepartmentTXTserialization o=new DepartmentTXTserialization();
-        o.serializingObj(department,file);
-    }
-
 
     @Override
     public void serializingObj(Department department,Writer file){
@@ -72,6 +28,16 @@ public class DepartmentTXTserialization implements Serializing<Department> {
 
     @Override
     public Department deserializingObj(Reader file) throws IOException, JAXBException {
-        return null;
+        BufferedReader bf = new BufferedReader(file);
+        List<String> text = new ArrayList<>();
+        int i = 0;
+        String line;
+        while((line = bf.readLine()) != null) {
+            text.add(line);
+        }
+
+        Department department=new Department();
+        department.fromString(text);
+        return department;
     }
 }
