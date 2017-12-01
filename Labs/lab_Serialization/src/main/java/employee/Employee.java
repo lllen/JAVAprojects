@@ -12,7 +12,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @XmlRootElement
-public class Employee implements Comparable<Employee>,Serializable{
+public class Employee implements Comparable<Employee>,Serializable {
 
     private String firstName;
     private String secondName;
@@ -23,35 +23,37 @@ public class Employee implements Comparable<Employee>,Serializable{
     private String workingPosition;
     private double salary;
 
-    private static final String NAME_PATTERN="^[A-Z][a-z]{3,14}(|[\\-][A-Z][a-z]{1,14})$"; // double name allowed with separator \\-
+    private static final String NAME_PATTERN = "^[A-Z][a-z]{3,14}(|[\\-][A-Z][a-z]{1,14})$"; // double name allowed with separator \\-
     private static final String PHONE_NUMBER_PATTERN = "^\\+380[0-9]{9}$";
-    private static final String EMAIL_ADDRESS_PATTERN ="^[A-z]\\w{3,9}+@([a-z]{2,10})\\.(com|ru|ua)$";
-    private static final String WORKINGPOSITION_PATTERN="^[A-z]{2,15}($|\\s[A-z]{2,15})($|\\s[A-z]{2,15}$)";
+    private static final String EMAIL_ADDRESS_PATTERN = "^[A-z]\\w{3,9}+@([a-z]{2,10})\\.(com|ru|ua)$";
+    private static final String WORKINGPOSITION_PATTERN = "^[A-z]{2,15}($|\\s[A-z]{2,15})($|\\s[A-z]{2,15}$)";
 
 
     public static EmployeeBuilder newEmployeeBuilder() {
         return new Employee().new EmployeeBuilder();
     }
-    // BUILDER (inner class)
-    public  class EmployeeBuilder {
 
-        public EmployeeBuilder setSalary(double salary)throws RuntimeException{
-            if(salary>=5000){
-                Employee.this.salary=salary;
-                return  this;
+    // BUILDER (inner class)
+    public class EmployeeBuilder {
+
+        public EmployeeBuilder setSalary(double salary) throws RuntimeException {
+            if (salary >= 5000) {
+                Employee.this.salary = salary;
+                return this;
             }
             throw new RuntimeException("Incorrect salary, must be bigger or equal to 5000 !");
         }
-        public EmployeeBuilder setFirstName(final String firstName) throws RuntimeException{
-            if(checkFirstSecondName(firstName)){
+
+        public EmployeeBuilder setFirstName(final String firstName) throws RuntimeException {
+            if (checkFirstSecondName(firstName)) {
                 Employee.this.firstName = firstName;
                 return this;
             }
             throw new RuntimeException("Incorrect first name !");
         }
 
-        public EmployeeBuilder setSecondName(final String secondName) throws RuntimeException{
-            if(checkFirstSecondName(secondName)) {
+        public EmployeeBuilder setSecondName(final String secondName) throws RuntimeException {
+            if (checkFirstSecondName(secondName)) {
                 Employee.this.secondName = secondName;
                 return this;
             }
@@ -59,24 +61,24 @@ public class Employee implements Comparable<Employee>,Serializable{
             throw new RuntimeException("Incorrect second name !");
         }
 
-        public EmployeeBuilder setPhoneNumber(String phoneNumber)throws RuntimeException{
-            if(checkPhoneNumber(phoneNumber)){
-                Employee.this.phoneNumber=phoneNumber;
+        public EmployeeBuilder setPhoneNumber(String phoneNumber) throws RuntimeException {
+            if (checkPhoneNumber(phoneNumber)) {
+                Employee.this.phoneNumber = phoneNumber;
                 return this;
             }
             throw new RuntimeException("Incorrect phone number !");
         }
 
-        public EmployeeBuilder setEmailAddress(String emailAddress)throws RuntimeException{
-            if(checkEmailAddress(emailAddress)){
-                Employee.this.emailAddress=emailAddress;
+        public EmployeeBuilder setEmailAddress(String emailAddress) throws RuntimeException {
+            if (checkEmailAddress(emailAddress)) {
+                Employee.this.emailAddress = emailAddress;
                 return this;
             }
             throw new RuntimeException("Incorrect e-mail address !");
         }
 
-        public EmployeeBuilder setDateOfBirth(LocalDate dateOfBirth){
-            Employee.this.dateOfBirth=dateOfBirth;
+        public EmployeeBuilder setDateOfBirth(LocalDate dateOfBirth) {
+            Employee.this.dateOfBirth = dateOfBirth;
             return this;
         }
 
@@ -92,12 +94,11 @@ public class Employee implements Comparable<Employee>,Serializable{
         }
 
         public Employee build() {
-            return  Employee.this;
+            return Employee.this;
         }
     }
 
     // GET
-
 
 
     public double getSalary() {
@@ -120,28 +121,30 @@ public class Employee implements Comparable<Employee>,Serializable{
         return firstDayAtWork;
     }
 
-    public LocalDate getDateOfBirth(){
-        return dateOfBirth;}
+    public LocalDate getDateOfBirth() {
+        return dateOfBirth;
+    }
 
-    public String getEmailAddress(){
-        return emailAddress;}
+    public String getEmailAddress() {
+        return emailAddress;
+    }
 
 
-    public String getPhoneNumber(){
-        return phoneNumber;}
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
 
     @JsonIgnore
-    public long getWorkingExperience(){
+    public long getWorkingExperience() {
         return ChronoUnit.YEARS.between(this.firstDayAtWork, LocalDate.now());
     }
 
     @JsonIgnore
-    public long getAge(){
-        return ChronoUnit.YEARS.between(this.dateOfBirth,LocalDate.now());
+    public long getAge() {
+        return ChronoUnit.YEARS.between(this.dateOfBirth, LocalDate.now());
     }
 
     // SET
-
 
 
     @XmlElement
@@ -150,25 +153,23 @@ public class Employee implements Comparable<Employee>,Serializable{
     }
 
     @XmlElement
-    public void setPhoneNumber (String phoneNumber)throws RuntimeException{
-        if(checkPhoneNumber(phoneNumber)){
-            this.phoneNumber=phoneNumber;
-        }
-        else
-        throw new RuntimeException("Incorrect phone number !");
+    public void setPhoneNumber(String phoneNumber) throws RuntimeException {
+        if (checkPhoneNumber(phoneNumber)) {
+            this.phoneNumber = phoneNumber;
+        } else
+            throw new RuntimeException("Incorrect phone number !");
     }
 
     @XmlElement
-    public void setEmailAddress(String emailAddress)throws RuntimeException{
-        if(checkEmailAddress(emailAddress)) {
+    public void setEmailAddress(String emailAddress) throws RuntimeException {
+        if (checkEmailAddress(emailAddress)) {
             this.emailAddress = emailAddress;
-        }
-        else
-        throw  new RuntimeException("Incorrect e-mail address !");
+        } else
+            throw new RuntimeException("Incorrect e-mail address !");
     }
 
     @XmlElement
-    public void setWorkingPosition(String workingPosition){
+    public void setWorkingPosition(String workingPosition) {
         this.workingPosition = workingPosition;
 
     }
@@ -180,19 +181,19 @@ public class Employee implements Comparable<Employee>,Serializable{
 
 
     // OTHERS
-    public boolean checkFirstSecondName(final String firstName){
+    public boolean checkFirstSecondName(final String firstName) {
         Pattern pattern = Pattern.compile(NAME_PATTERN);
         Matcher matcher = pattern.matcher(firstName);
-        if(matcher.matches())
+        if (matcher.matches())
             return true;
         return false;
     }
 
 
-    public boolean checkPhoneNumber(String phoneNumber){
-        Pattern pattern=Pattern.compile(PHONE_NUMBER_PATTERN);
-        Matcher matcher=pattern.matcher(phoneNumber);
-        if(matcher.matches())
+    public boolean checkPhoneNumber(String phoneNumber) {
+        Pattern pattern = Pattern.compile(PHONE_NUMBER_PATTERN);
+        Matcher matcher = pattern.matcher(phoneNumber);
+        if (matcher.matches())
             return true;
         return false;
     }
@@ -211,10 +212,10 @@ public class Employee implements Comparable<Employee>,Serializable{
         this.dateOfBirth = dateOfBirth;
     }
 
-    public boolean checkEmailAddress(String emailAddress){
-        Pattern pattern=Pattern.compile(EMAIL_ADDRESS_PATTERN);
-        Matcher matcher=pattern.matcher(emailAddress);
-        if(matcher.matches())
+    public boolean checkEmailAddress(String emailAddress) {
+        Pattern pattern = Pattern.compile(EMAIL_ADDRESS_PATTERN);
+        Matcher matcher = pattern.matcher(emailAddress);
+        if (matcher.matches())
             return true;
         return false;
     }
@@ -249,6 +250,7 @@ public class Employee implements Comparable<Employee>,Serializable{
                 phoneNumber, emailAddress,
                 workingPosition, salary);
     }
+
     @Override
     public int compareTo(Employee employee) {
         return this.secondName.compareTo(employee.getSecondName());
@@ -259,13 +261,13 @@ public class Employee implements Comparable<Employee>,Serializable{
     public String toString() {
         return
                 "\nfirstName='" + firstName + "'\n" +
-                "secondName='" + secondName + "'\n" +
-                "dateOfBirth='" + dateOfBirth + "'\n" +
-                "firstDayAtWork='" + firstDayAtWork + "'\n" +
-                "phoneNumber='" + phoneNumber + "'\n" +
-                "emailAddress='" + emailAddress + "'\n" +
-                "workingPosition='" + workingPosition + "'\n" +
-                "salary='" + salary + "'";
+                        "secondName='" + secondName + "'\n" +
+                        "dateOfBirth='" + dateOfBirth + "'\n" +
+                        "firstDayAtWork='" + firstDayAtWork + "'\n" +
+                        "phoneNumber='" + phoneNumber + "'\n" +
+                        "emailAddress='" + emailAddress + "'\n" +
+                        "workingPosition='" + workingPosition + "'\n" +
+                        "salary='" + salary + "'";
     }
 
     public String formString() {
@@ -280,7 +282,7 @@ public class Employee implements Comparable<Employee>,Serializable{
                         "salary='" + salary + "'";
     }
 
-    public void fromString(String[] str) {
+    /*public void fromString(String[] str) {
         String FIRST_NAME = "(firstName\\=\')([A-Z][a-z]{3,14}(|[\\-][A-Z][a-z]{1,14}))(\')";
         String SECOND_NAME = "(secondName\\=\')([A-Z][a-z]{3,14}(|[\\-][A-Z][a-z]{1,14}))(\')";
         String EMAIL_ADDRESS = "(emailAddress\\=\')([A-z]\\w{3,9}+@([a-z]{2,10})\\.(com|ru|ua))(\')";
@@ -337,7 +339,7 @@ public class Employee implements Comparable<Employee>,Serializable{
             if (matcher.matches()) {
                 this.workingPosition = matcher.group(2);
             }
-        }
-    }
+        }*/
 }
+
 

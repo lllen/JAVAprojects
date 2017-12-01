@@ -153,7 +153,7 @@ public class DepartmentSerializationTest {
         return new Object[][]{{new DepartmentTXTserialization(), department1,filename}};
     }
 
-  /*  @Test(dataProvider = "TXTserializationProvider")
+  /* @Test(dataProvider = "TXTserializationProvider")
     public void TXTserializationTest(DepartmentTXTserialization TXTserialization, Department department, String filename) throws IOException {
         TXTserialization.serializingObj(department,new FileWriter(filename));
     }*/

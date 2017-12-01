@@ -115,11 +115,11 @@ public class DepartmentTest {
 
         return new Object[][]{{dep1, 23.0}};
     }
-
+/*
     @Test(dataProvider = "EmployeeAverageAgeProvider")
     public void EmployeeAverageAgeTest(Department department, double expected_avg_age){
         Assert.assertEquals(department.getAverageAge(),expected_avg_age);
-    }
+    }*/
 
     @DataProvider
     Object[][] SortedEmployeesProvider(){
