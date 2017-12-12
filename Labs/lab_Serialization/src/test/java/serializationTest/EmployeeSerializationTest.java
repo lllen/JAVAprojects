@@ -61,11 +61,10 @@ public class EmployeeSerializationTest {
         return new Object[][]{{new EmployeeXMLserialization(),employee,fileName_xml}};
     }
 
-    /*@Test(dataProvider = "XMLserializationEmployeeProvider")
+   /* @Test(dataProvider = "XMLserializationEmployeeProvider")
     public void XMLserializationEmployeeTest(EmployeeXMLserialization xmlSerial,Employee employee,String  file_in) throws IOException {
         xmlSerial.serializingObj(employee,new FileWriter(file_in));
-    }
-*/
+    }*/
 
     @Test(dataProvider = "XMLserializationEmployeeProvider")
     public void XMLdeserializationEmployeeTest(EmployeeXMLserialization xmlDeserial, Employee employee, String  file_out) throws IOException, JAXBException {

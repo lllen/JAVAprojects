@@ -1,4 +1,4 @@
-package databaseApp;
+package databaseService;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -21,5 +21,9 @@ public class DBconnector {
 
     public Connection getConnection() {
         return connection;
+    }
+
+    public void closeConnection() throws SQLException {
+        connection.close();
     }
 }

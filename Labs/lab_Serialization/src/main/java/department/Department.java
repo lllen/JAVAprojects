@@ -18,7 +18,8 @@ public class Department implements Serializable {
     private List<Employee> employees;
     private static final String DEPARTMENT_NAME_PATTERN ="^[A-z]{2,15}($|\\s[A-z]{2,15})($|\\s[A-z]{2,15}$)"; // three words allowed
 
-
+    @JsonIgnore
+    private int id_department;
 
     public static DepartmentBuilder newDepartmentBuilder(){
         return new Department().new DepartmentBuilder();

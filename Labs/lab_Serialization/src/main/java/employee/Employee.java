@@ -22,6 +22,8 @@ public class Employee implements Comparable<Employee>,Serializable {
     private String emailAddress;
     private String workingPosition;
     private double salary;
+    @JsonIgnore
+    private int id_department;
 
     private static final String NAME_PATTERN = "^[A-Z][a-z]{3,14}(|[\\-][A-Z][a-z]{1,14})$"; // double name allowed with separator \\-
     private static final String PHONE_NUMBER_PATTERN = "^\\+380[0-9]{9}$";
@@ -134,6 +136,12 @@ public class Employee implements Comparable<Employee>,Serializable {
         return phoneNumber;
     }
 
+
+    @JsonIgnore
+    public int getId_department() {
+        return id_department;
+    }
+
     @JsonIgnore
     public long getWorkingExperience() {
         return ChronoUnit.YEARS.between(this.firstDayAtWork, LocalDate.now());
@@ -174,6 +182,10 @@ public class Employee implements Comparable<Employee>,Serializable {
 
     }
 
+
+    public void setId_department(int id_department) {
+        this.id_department = id_department;
+    }
 
     public void setFirstDayAtWork(LocalDate firstDayAtWork) {
         this.firstDayAtWork = firstDayAtWork;
